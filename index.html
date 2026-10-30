@@ -139,7 +139,11 @@ summary:hover{color:var(--ink)}
 .resetBox{display:flex;justify-content:center;padding:4px 0 8px}
 .linkbtn{border:0;background:none;color:var(--muted);font:500 13px var(--f-body);cursor:pointer;padding:8px 12px;border-radius:8px}
 .linkbtn:hover{color:var(--ink);background:var(--fill)}
-.osm{text-align:center;font-size:11px;color:var(--muted);margin:0 0 8px}.osm a{color:inherit}
+.foot{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 8px;padding:6px 0 4px;border-top:.5px solid var(--sep);margin-top:4px}
+.foot>a{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:10px;background:var(--fill);color:var(--ink);font:600 13px var(--f-body);text-decoration:none}
+.foot>a:hover{background:rgba(118,118,128,.2)}
+.foot svg{width:16px;height:16px}
+.foot p{flex-basis:100%;text-align:center;margin:2px 0 0;font-size:11px;color:var(--muted)}.foot p a{color:inherit}
 .linkbtn.armed{color:#fff;background:var(--warn)}
 summary .st{display:flex;align-items:center;gap:8px;flex:1}
 .sreset{pointer-events:auto;border:0;background:none;color:var(--muted);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;cursor:pointer;margin-right:6px;opacity:0;transition:opacity .15s}
@@ -176,7 +180,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.06),0 3px 8px rgba(0,0,0,.15)}
 input[type=checkbox]{-webkit-appearance:none;appearance:none;width:44px;height:26px;border-radius:13px;background:var(--fill);position:relative;cursor:pointer;margin:0;flex:none;transition:background .2s}
 input[type=checkbox]::after{content:"";position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.18),0 0 0 .5px rgba(0,0,0,.04);transition:transform .22s cubic-bezier(.3,.7,.4,1.2)}
-input[type=checkbox]:checked{background:var(--green)}
+input[type=checkbox]:checked{background:var(--ink)}
 input[type=checkbox]:checked::after{transform:translateX(18px)}
 select,input[type=text],input[type=number]{width:100%;min-width:0;height:34px;background:var(--fill);color:var(--ink);border:0;border-radius:9px;padding:0 10px;font:14px var(--f-body)}
 input[type=text]::placeholder{color:var(--muted)}
@@ -189,8 +193,6 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .btn{border:0;background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:8px 14px;font:600 14px var(--f-body);cursor:pointer;white-space:nowrap;transition:transform .1s,background .15s}
 .btn:hover{background:rgba(118,118,128,.2)}
 .btn:active{transform:scale(.97)}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.primary:hover{background:#3a3a3c}
 .btn.on{background:var(--accent);color:#fff}
 .btn:disabled{opacity:.55;cursor:progress}
 :focus-visible{outline:3px solid rgba(60,60,67,.45);outline-offset:2px}
@@ -270,17 +272,9 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .dbtn svg{width:17px;height:17px;flex:none}
 .dbtn:hover{background:rgba(118,118,128,.2)}
 .dbtn:active{transform:scale(.96)}
-.dbtn.primary{background:#1c1c1e;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
-.dbtn.primary:hover{background:#3a3a3c}
 .dbtn:disabled{opacity:.6;cursor:progress}
 a.dbtn{text-decoration:none}
-.dbtn.frame{background:#fff;box-shadow:inset 0 0 0 1px var(--sep)}
-.dbtn.frame:hover{background:var(--fill)}
 .dock-aff{order:3;margin:0;padding:0 6px;font-size:10.5px;line-height:1.35;color:var(--muted)}
-.kofi-btn{position:absolute;top:12px;right:16px;z-index:4;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#29abe0;
-  box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 4px 14px rgba(41,171,224,.4);transition:transform .15s}
-.kofi-btn:hover{transform:scale(1.07)}
-.kofi-btn svg{width:24px;height:24px}
 .mnav{display:none}
 .toast{position:fixed;bottom:calc(40px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(28,28,30,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;padding:10px 16px;border-radius:14px;font:500 13px var(--f-body);z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 body{touch-action:manipulation}
@@ -296,13 +290,12 @@ body{touch-action:manipulation}
   .stage-wrap{position:fixed;left:0;right:0;top:0;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + var(--sheetOpen,0px));
     grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px);transition:bottom .32s cubic-bezier(.32,.72,0,1)}
   .mnav{display:flex;align-items:center;min-height:56px;padding:6px 64px 6px max(16px,env(safe-area-inset-left,0px));border-bottom:.5px solid var(--sep);background:rgba(249,249,251,.86);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
-  .kofi-btn{top:calc(env(safe-area-inset-top,0px) + 8px);right:max(14px,env(safe-area-inset-right,0px))}
   .stage{padding:12px 12px 78px}
   .dock{left:50%;right:auto;top:auto;bottom:18px;transform:translateX(-50%);width:auto;padding:6px;border-radius:18px}
   .dock-btns{display:flex}
   .dock .readout{display:none}
-  .dbtn:not(.primary) span{display:none}
-  .dbtn:not(.primary){padding:9px 12px}
+  .dbtn:not(#exportBtn) span{display:none}
+  .dbtn:not(#exportBtn){padding:9px 12px}
   .dock-aff{text-align:center;font-size:9.5px}
   .dbtn{padding:9px 14px;font-size:14px;border-radius:13px}
   .dl,.hint{display:none!important}
@@ -345,7 +338,7 @@ body{touch-action:manipulation}
     <div data-tab="place" class="placeBox">
     <form class="search" id="searchForm" autocomplete="off">
       <input type="search" id="q" placeholder="Search city, district or coordinates" aria-label="Search place">
-      <button class="btn primary" type="submit">Search</button>
+      <button class="btn" type="submit">Search</button>
       <div class="results" id="results" hidden></div>
     </form>
     <div class="btns"><button class="btn" id="surprise" type="button">Surprise me</button><button class="btn" id="disguise" type="button">Disguise this place</button></div>
@@ -357,7 +350,7 @@ body{touch-action:manipulation}
     </div>
 
     <details data-tab="place" id="myDesigns"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>My designs</span></summary><div class="body">
-      <div class="row2"><input type="text" id="designName" placeholder="Name this design" aria-label="Design name" style="grid-column:1"><button type="button" class="btn primary" id="designSave">Save</button></div>
+      <div class="row2"><input type="text" id="designName" placeholder="Name this design" aria-label="Design name" style="grid-column:1"><button type="button" class="btn" id="designSave">Save</button></div>
       <div class="designs" id="designList"></div>
       <p class="note" id="designEmpty">Save designs to come back to them later. They are kept in this browser only.</p>
     </div></details>
@@ -421,7 +414,7 @@ body{touch-action:manipulation}
     </div></details>
 
     <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
-      <div class="btns"><button class="btn primary" id="pinCenter" type="button">Add at center</button><button class="btn" id="pinMode" type="button">Click map to add</button></div>
+      <div class="btns"><button class="btn" id="pinCenter" type="button">Add at center</button><button class="btn" id="pinMode" type="button">Place on map</button></div>
       <div class="row"><label for="pinSize">Icon size</label><input type="range" id="pinSize" min="2" max="30" step="0.5"><output></output></div>
       <div class="pins" id="pinList"></div>
       <p class="note" id="pinEmpty">Mark home, a first date or a favourite café with an icon. Each icon can have its own color and label.</p>
@@ -438,7 +431,7 @@ body{touch-action:manipulation}
       <div class="row"><label for="bearing">Rotation</label><input type="range" id="bearing" min="-180" max="180" step="1"><output></output></div>
       <div class="row"><label for="pitch">Tilt</label><input type="range" id="pitch" min="0" max="60" step="1"><output></output></div>
       <div class="row"><label for="detail">Street detail</label><input type="range" id="detail" min="0" max="2" step="1"><output></output></div>
-      <div class="sw-row"><label for="mirror">Mirror (disguise)</label><input type="checkbox" id="mirror"></div>
+      <div class="sw-row"><label for="mirror">Mirror map</label><input type="checkbox" id="mirror"></div>
       <p class="note">Tilt 0 is a straight top-down view. Higher street detail draws more small streets at city-wide zoom.</p>
     </div></details>
 
@@ -461,16 +454,19 @@ body{touch-action:manipulation}
         <select id="mockMat"><option value="none">None</option><option value="thin">Thin</option><option value="wide">Wide</option></select></div>
       <div class="row2"><label class="lbl" for="mockWall">Wall</label>
         <select id="mockWall"><option value="warm">Warm white</option><option value="white">Gallery white</option><option value="greige">Greige</option><option value="sage">Sage</option><option value="stone">Stone gray</option><option value="night">Charcoal</option></select></div>
-      <p class="note">Mockup PNG saves this framed scene for listings and social posts. Export PNG always saves the print file only.</p>
+      <p class="note">Mockup saves this framed scene for listings and social posts. Export always saves the print file only.</p>
     </div></details>
 
     <div class="resetBox" data-tab="place"><button type="button" class="linkbtn" id="resetAll">Reset all settings</button></div>
-    <p class="osm" data-tab="place">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></p>
+    <footer class="foot" data-tab="place">
+      <a href="https://github.com/guilhermelimait/MapMaking" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+      <a href="https://ko-fi.com/guilhermelimait" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6.5h13.2a3.8 3.8 0 0 1 0 7.6h-.9v.6A3.3 3.3 0 0 1 13 18H7.3A3.3 3.3 0 0 1 4 14.7zm12.3 2v3.6h.9a1.8 1.8 0 0 0 0-3.6z"/></svg>Support on Ko-fi</a>
+      <p>Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></p>
+    </footer>
   </aside>
 
   <main class="stage-wrap">
     <header class="mnav"><div class="mnav-title"><b>MapMaking</b><span id="mSize"></span></div></header>
-    <a class="kofi-btn" href="https://ko-fi.com/guilhermelimait" target="_blank" rel="noopener" title="Support MapMaking on Ko-fi" aria-label="Support MapMaking on Ko-fi"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#fff" d="M4 6.5h13.2a3.8 3.8 0 0 1 0 7.6h-.9v.6A3.3 3.3 0 0 1 13 18H7.3A3.3 3.3 0 0 1 4 14.7zm12.3 2v3.6h.9a1.8 1.8 0 0 0 0-3.6z"/><path fill="#ff5e5b" d="M10.2 15.2s-3.1-1.9-3.1-3.9c0-1 .8-1.8 1.7-1.8.6 0 1.1.3 1.4.8.3-.5.8-.8 1.4-.8 1 0 1.7.8 1.7 1.8 0 2-3.1 3.9-3.1 3.9z"/></svg></a>
     <div class="stage" id="stage">
       <div class="mount" id="mount">
         <div class="frame" id="frame">
@@ -484,10 +480,10 @@ body{touch-action:manipulation}
         <div class="readout" id="readout"></div>
         <div class="dock-btns">
           <button class="dbtn" id="copyLink" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span class="dl">Copy link</span><span class="ml">Link</span></button>
-          <button class="dbtn" id="mockBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"/><rect x="7.5" y="6.5" width="9" height="11"/></svg><span class="dl">Mockup PNG</span><span class="ml">Mockup</span></button>
+          <button class="dbtn" id="mockBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"/><rect x="7.5" y="6.5" width="9" height="11"/></svg><span class="dl">Mockup</span><span class="ml">Mockup</span></button>
           <button class="dbtn" id="pdfBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 14h6M10 17h4"/></svg><span class="dl">Print PDF</span><span class="ml">PDF</span></button>
-          <button class="dbtn primary" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg><span class="dl">Export PNG</span><span class="ml">Export</span></button>
-          <a class="dbtn frame" id="frameBtn" target="_blank" rel="sponsored noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.2 11h10.4l2-8H6.3"/></svg><span class="dl" id="frameLbl">Buy a frame</span><span class="ml">Frame</span></a>
+          <button class="dbtn" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg><span class="dl">Export</span><span class="ml">Export</span></button>
+          <a class="dbtn" id="frameBtn" target="_blank" rel="sponsored noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.2 11h10.4l2-8H6.3"/></svg><span class="dl" id="frameLbl">Buy a frame</span><span class="ml">Frame</span></a>
         </div>
         <p class="dock-aff" id="shopNote" hidden>Amazon affiliate link: MapMaking earns from qualifying purchases.</p>
       </div>
@@ -499,7 +495,7 @@ body{touch-action:manipulation}
   <img id="readyImg" alt="Exported image">
   <p class="note" id="readyNote">Tap Save to Photos, or press and hold the image.</p>
   <a class="ready-shop" id="readyShop" target="_blank" rel="sponsored noopener" hidden></a>
-  <div class="btns"><button type="button" class="btn" id="readyClose">Close</button><button type="button" class="btn primary" id="readyShare">Save to Photos</button></div>
+  <div class="btns"><button type="button" class="btn" id="readyClose">Close</button><button type="button" class="btn" id="readyShare">Save to Photos</button></div>
 </div></div>
 <div class="toast" id="toast" hidden></div>
 
@@ -918,7 +914,7 @@ function renderPins(){const L=$("pinList");L.innerHTML="";$("pinEmpty").hidden=S
     d.querySelector('[data-a="center"]').onclick=()=>{if(map){map.jumpTo({center:p.ll});syncCam()}};
     d.querySelector('[data-a="del"]').onclick=()=>{S.pins.splice(i,1);renderPins();redraw()};
     L.append(d)})}
-$("pinMode").onclick=()=>{pinMode=!pinMode;$("pinMode").textContent=pinMode?"Done adding":"Click map to add";$("pinMode").classList.toggle("on",pinMode);frame.classList.toggle("pinning",pinMode);$("hint").textContent=pinMode?(TOUCH?"Tap the map to drop an icon":"Click the map to drop an icon"):(TOUCH?"Drag to pan · pinch to zoom":"Drag to pan · scroll or pinch to zoom");$("hint").style.opacity=pinMode||!hinted?"1":"0"};
+$("pinMode").onclick=()=>{pinMode=!pinMode;$("pinMode").textContent=pinMode?"Done":"Place on map";$("pinMode").classList.toggle("on",pinMode);frame.classList.toggle("pinning",pinMode);$("hint").textContent=pinMode?(TOUCH?"Tap the map to drop an icon":"Click the map to drop an icon"):(TOUCH?"Drag to pan · pinch to zoom":"Drag to pan · scroll or pinch to zoom");$("hint").style.opacity=pinMode||!hinted?"1":"0"};
 $("pinCenter").onclick=()=>addPin([...S.center]);
 bindRange("pinSize",()=>S.pinSize,v=>S.pinSize=v,v=>v.toFixed(1),redraw);
 

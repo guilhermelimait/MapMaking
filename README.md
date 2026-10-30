@@ -36,7 +36,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 **Framed mockups**
 - Preview the poster framed on a wall (black, oak, walnut or white frame, optional mat, six wall colors).
-- **Mockup PNG** saves that scene for shop listings or social posts.
+- **Mockup** saves that scene for shop listings or social posts.
 
 ![Framed mockup](screenshots/mockup.png)
 
@@ -65,7 +65,7 @@ iPhones cannot create images larger than about 16 megapixels. Large print format
 1. Search for a city, district or coordinates (for example `45.4642, 9.19`), or tap **Surprise me** for a random city with a random palette, layout, typeface and sometimes a tilted or rotated view.
 2. Drag and zoom the map until the framing looks right.
 3. Choose a layout, palette, size and text.
-4. Click **Export PNG** or **Print PDF** for the print file, or **Mockup PNG** for the framed scene.
+4. Click **Export** or **Print PDF** for the print file, or **Mockup** for the framed scene.
 
 ## Running and deploying
 
