@@ -210,7 +210,12 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .design .ib{border:0;background:none;color:var(--muted);cursor:pointer;width:28px;height:28px;border-radius:8px}
 .design .ib:hover{background:var(--fill);color:var(--warn)}
 #myDesigns .row2{grid-template-columns:1fr auto}
-.shop{display:grid;gap:6px}.shop .btn{text-align:center;text-decoration:none}
+.shop{display:grid;gap:6px}
+.prods{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.prod{border:0;background:var(--bg);border-radius:12px;padding:10px 4px 8px;display:grid;justify-items:center;gap:5px;cursor:pointer;font:600 12px var(--f-body);color:var(--ink);transition:background .15s}
+.prod:hover{background:var(--fill)}
+.prod svg{width:26px;height:26px}
+.prod:disabled{opacity:.5;cursor:progress}.shop .btn{text-align:center;text-decoration:none}
 .ready-shop{text-align:center;font:600 13.5px var(--f-body);color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .swgroup{grid-column:1/-1;font:600 11.5px var(--f-body);color:var(--muted);letter-spacing:.02em;margin:6px 2px -2px}
 .swgroup:first-child{margin-top:0}
@@ -426,6 +431,13 @@ body{touch-action:manipulation}
     </div></details>
 
 
+    <details data-tab="layout" id="productsSec"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Print on products</span></summary><div class="body">
+      <div class="prods" id="prodList"></div>
+      <p class="note">Tap a product: your map downloads, and Zazzle opens in a new tab. On Zazzle, choose <b>Upload</b> and pick the file you just saved.</p>
+      <div class="shop" id="shopBox" hidden><a id="shopLink" target="_blank" rel="sponsored noopener" class="btn"></a><p class="note" id="shopNote" hidden>As an Amazon Associate, MapMaking earns from qualifying purchases.</p></div>
+      <p class="note aff">MapMaking earns a referral commission from Zazzle purchases, at no extra cost to you.</p>
+    </div></details>
+
     <details data-tab="camera"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
       <div class="row"><label for="zoom">Zoom</label><input type="range" id="zoom" min="9" max="17" step="0.01"><output></output></div>
       <div class="row"><label for="bearing">Rotation</label><input type="range" id="bearing" min="-180" max="180" step="1"><output></output></div>
@@ -445,7 +457,6 @@ body{touch-action:manipulation}
         <select id="mockMat"><option value="none">None</option><option value="thin">Thin</option><option value="wide">Wide</option></select></div>
       <div class="row2"><label class="lbl" for="mockWall">Wall</label>
         <select id="mockWall"><option value="warm">Warm white</option><option value="white">Gallery white</option><option value="greige">Greige</option><option value="sage">Sage</option><option value="stone">Stone gray</option><option value="night">Charcoal</option></select></div>
-      <div class="shop" id="shopBox" hidden><a id="shopLink" target="_blank" rel="sponsored noopener" class="btn"></a><p class="note" id="shopNote" hidden>As an Amazon Associate, MapMaking earns from qualifying purchases.</p></div>
       <p class="note">Mockup PNG saves this framed scene for listings and social posts. Export PNG always saves the print file only.</p>
     </div></details>
 
@@ -1147,6 +1158,29 @@ function syncShop(){const q=frameQuery(),k=storeKey(),[dom,word]=STORES[k],tag=S
   const url=`https://www.${dom}/s?k=${encodeURIComponent(word+" "+q)}${tag?`&tag=${encodeURIComponent(tag)}`:""}`;
   $("shopLink").href=url;$("shopLink").textContent=`Find ${q} frames on ${dom.replace(/^amazon/,"Amazon")}`;$("shopNote").hidden=!tag;
   $("readyShop").href=url;$("readyShop").hidden=false;$("readyShop").textContent=`Need a frame? Shop ${q} frames`}
+
+// ---------- print on products (Zazzle referral) ----------
+const ZAZZLE_RF="238107712955039653";
+const PRODUCTS=[
+  ["Poster","custom/posters",'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M8 15l3-4 2 3 2-2 2 3"/>'],
+  ["Framed art","custom/art",'<rect x="3.5" y="3.5" width="17" height="17" rx="1"/><rect x="7" y="7" width="10" height="10"/>'],
+  ["T-shirt","custom/tshirts",'<path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/>'],
+  ["Mug","custom/mugs",'<path d="M5 6h11v11a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M16 9h2a2.5 2.5 0 0 1 0 5h-2"/>'],
+  ["Puzzle","custom/puzzles",'<path d="M4 4h6v2a2 2 0 1 0 4 0V4h6v6h-2a2 2 0 1 0 0 4h2v6h-6v-2a2 2 0 1 0-4 0v2H4z"/>'],
+  ["Pillow","custom/pillows",'<path d="M5 6c3 1 11 1 14 0-1 4-1 8 0 12-3-1-11-1-14 0 1-4 1-8 0-12z"/>']];
+const zazzleUrl=path=>`https://www.zazzle.com/${path}?rf=${ZAZZLE_RF}`;
+PRODUCTS.forEach(([name,path,svg])=>{const b=document.createElement("button");b.type="button";b.className="prod";
+  b.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${svg}</svg>${name}`;
+  b.onclick=async()=>{if(!map)return;const tab=window.open("about:blank","_blank");
+    document.querySelectorAll(".prod").forEach(x=>x.disabled=true);toast(`Preparing your map for the ${name.toLowerCase()}…`);
+    try{const[W0,H0]=outSize();let W=W0,H=H0;const cap=Math.min(MAXPX,24e6);if(W*H>cap){const k=Math.sqrt(cap/(W*H));W=Math.floor(W0*k);H=Math.floor(H0*k)}
+      SIZE_OVERRIDE=W!==W0?[W,H]:null;let c;try{c=await renderPoster(null)}finally{SIZE_OVERRIDE=null}
+      if(tab)tab.location=zazzleUrl(path);
+      await deliver(c,`${fileBase()}-for-${name.toLowerCase().replace(/[^a-z]+/g,"-")}.png`,`${W} × ${H} PNG for your ${name.toLowerCase()}. On Zazzle, tap Upload and choose this file`);
+      if(!tab){$("readyShop").href=zazzleUrl(path);$("readyShop").textContent=`Open Zazzle ${name.toLowerCase()} designer`;$("readyShop").hidden=false}
+    }catch(err){if(tab)tab.close();toast("Could not prepare the image: "+(err.message||err))}
+    finally{document.querySelectorAll(".prod").forEach(x=>x.disabled=false)}};
+  $("prodList").append(b)});
 
 // ---------- per-section reset ----------
 const SECTION_KEYS={"Palette":["palette","colors"],"Layout":["layout","margin"],"Text":["text"],"Size":["psize","orient","dpi","wsize","cw","ch","focus","grain"],

@@ -40,6 +40,10 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 ![Framed mockup](screenshots/mockup.png)
 
+**Print on products**
+- One tap on Poster, Framed art, T-shirt, Mug, Puzzle or Pillow saves your map and opens the matching Zazzle designer, where you upload the file. A frame-shopping link sized to your poster opens Amazon.
+- MapMaking earns a referral commission from Zazzle and Amazon purchases, at no extra cost to the buyer.
+
 **Wallpapers**
 - Phone, tablet, handheld and desktop sizes up to 5K, with the text on top of the map.
 
