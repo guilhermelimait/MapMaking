@@ -11,7 +11,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 ## Features
 
 **Posters**
-- Four layouts: **Fade** (the map fades into the paper), **Block** (a colored map panel with left-aligned text), **Border** (double-line frame) and **Circle** (round map).
+- Seven layouts: **Fade** (the map fades into the paper), **Block** (a colored map panel with left-aligned text), **Border** (double-line frame), and map shapes **Circle**, **Heart**, **House** and **Hexagon**.
 - Text block with title, subtitle, coordinates and an optional tagline. Search fills in the city and country automatically.
 - Coordinates as degrees/minutes/seconds, decimal, or "latitude | longitude".
 - Six poster typefaces: Montserrat, Jost, Space Mono, Playfair Display, Cormorant Garamond and Barlow Condensed.
@@ -27,6 +27,14 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 **Icons and points of interest**
 - Add icons at the map center or by tapping the map: map pin, heart, star, home, flag, plane, target or dot. Each icon has its own color and an optional label.
 - Optional points from OpenStreetMap: stations, cafés and restaurants, nightlife, culture, shops.
+
+**Routes and journeys**
+- Upload a GPX or GeoJSON file (Strava, Garmin, Komoot…) to draw a run, ride, hike or road trip as a highlighted line with start and finish dots. The file stays on your device.
+- Connect your icons with a solid, dashed or dotted line, straight or curved, for "where we met → first home → today" posters.
+
+**Print**
+- **Print PDF** sized in mm for print shops, with optional 3 mm bleed and crop marks.
+- Map shapes: Circle, Heart, House and Hexagon, besides the Fade, Block and Border layouts.
 
 **Framed mockups**
 - Preview the poster framed on a wall (black, oak, walnut or white frame, optional mat, six wall colors).
@@ -45,6 +53,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 **More**
 - **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.
 - Every section has its own reset button (with Undo), and **Reset all settings** at the bottom of the panel starts over completely.
+- **My designs** saves favourite designs in your browser to reopen later.
 - Every setting is stored in the page link. **Copy link** (or **Link** on iPhone) brings back the exact same design later.
 
 ## iPhone
@@ -60,7 +69,7 @@ iPhones cannot create images larger than about 16 megapixels. Large print format
 1. Search for a city, district or coordinates (for example `45.4642, 9.19`), or tap **Surprise me** for a random city with a random palette, layout, typeface and sometimes a tilted or rotated view.
 2. Drag and zoom the map until the framing looks right.
 3. Choose a layout, palette, size and text.
-4. Click **Export PNG** for the print file, or **Mockup PNG** for the framed scene.
+4. Click **Export PNG** or **Print PDF** for the print file, or **Mockup PNG** for the framed scene.
 
 ## Running and deploying
 
@@ -107,6 +116,7 @@ The first build downloads MapLibre GL JS 4.7.1 with `npm` into `vendor/` (ignore
 - Vector tiles by [OpenFreeMap](https://openfreemap.org), using the [OpenMapTiles](https://openmaptiles.org) schema.
 - [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) 4.7.1, BSD 3-Clause License, bundled in `index.html`.
 - The game-inspired palettes are fan color homages. Game names and trademarks belong to their owners; MapMaking is not affiliated with or endorsed by them.
+- Print PDF uses [jsPDF](https://github.com/parallax/jsPDF) (MIT), loaded on demand.
 - Typefaces from [Google Fonts](https://fonts.google.com), under the SIL Open Font License.
 
 ## Support
