@@ -1138,7 +1138,7 @@ $("designName").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefa
 
 // ---------- frame shopping links ----------
 // Add your affiliate tags here to earn a commission (e.g. Amazon Associates: "yourtag-21").
-const SHOP={amazon:{it:"",com:"",uk:"",de:"",fr:"",es:"",br:""}};
+const SHOP={amazon:{it:"guilhermeli03-21",com:"",uk:"",de:"",fr:"",es:"",br:""}};
 const STORES={it:["amazon.it","cornice"],uk:["amazon.co.uk","picture frame"],de:["amazon.de","bilderrahmen"],fr:["amazon.fr","cadre photo"],es:["amazon.es","marco"],br:["amazon.com.br","moldura quadro"],com:["amazon.com","picture frame"]};
 function storeKey(){const l=(navigator.language||"en-US").toLowerCase();if(l.startsWith("it"))return"it";if(l==="pt-br"||l.startsWith("pt"))return"br";if(l==="en-gb")return"uk";if(l.startsWith("de"))return"de";if(l.startsWith("fr"))return"fr";if(l.startsWith("es"))return"es";return"com"}
 function frameQuery(){if(S.mode!=="poster")return null;if(S.psize==="custom")return null;const[a,b,u]=POSTER_SIZES[S.psize];
