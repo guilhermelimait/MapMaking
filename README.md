@@ -37,6 +37,10 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 **Wallpapers**
 - Phone, tablet, handheld and desktop sizes up to 5K, with the text on top of the map.
 
+**Game cities**
+- 16 real places that famous games are set in or modelled on, each with a matching palette: Los Angeles (GTA V), New York (GTA IV), Miami (Vice City), Florence (Assassin's Creed II), Paris (Assassin's Creed Unity), Chicago, San Francisco and London (Watch Dogs), Kabukichō (Yakuza), Shibuya (Persona 5), New Orleans (Red Dead Redemption 2), Washington D.C., Boston and Las Vegas (Fallout), Pittsburgh (The Last of Us) and Guanajuato (Forza Horizon 5).
+- The maps are drawn from OpenStreetMap; no game artwork is included.
+
 **More**
 - **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.
 - Every section has its own reset button (with Undo), and **Reset all settings** at the bottom of the panel starts over completely.
@@ -52,7 +56,7 @@ iPhones cannot create images larger than about 16 megapixels. Large print format
 
 ## Using it
 
-1. Search for a city, district or coordinates (for example `45.4642, 9.19`), or tap **Surprise me**.
+1. Search for a city, district or coordinates (for example `45.4642, 9.19`), or tap **Surprise me** for a random city with a random palette, layout, typeface and sometimes a tilted or rotated view.
 2. Drag and zoom the map until the framing looks right.
 3. Choose a layout, palette, size and text.
 4. Click **Export PNG** for the print file, or **Mockup PNG** for the framed scene.

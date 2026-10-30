@@ -187,6 +187,12 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .lay[aria-pressed="true"] svg{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,0,0,.18)}
 .lay[aria-pressed="true"]{color:var(--accent);font-weight:600}
 .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gc-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.gc{border:0;background:var(--bg);border-radius:10px;padding:8px 10px;text-align:left;cursor:pointer;display:grid;gap:1px;min-width:0;transition:background .15s}
+.gc:hover{background:var(--fill)}
+.gc b{font:600 13px/1.25 var(--f-body)}
+.gc small{font:12px var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gc i{display:block;height:4px;border-radius:2px;margin-top:5px}
 .swgroup{grid-column:1/-1;font:600 11.5px var(--f-body);color:var(--muted);letter-spacing:.02em;margin:6px 2px -2px}
 .swgroup:first-child{margin-top:0}
 .sw{border:0;border-radius:12px;padding:0;aspect-ratio:1.55;max-width:100%;cursor:pointer;position:relative;overflow:hidden;background:none;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
@@ -324,6 +330,11 @@ body{touch-action:manipulation}
       <button type="button" id="modeWall" aria-pressed="false">Wallpaper</button>
     </div>
     </div>
+
+    <details data-tab="place" id="gameCities"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h4M8 7v4"/><circle cx="15.5" cy="10" r=".9" fill="currentColor"/><circle cx="17.5" cy="12.5" r=".9" fill="currentColor"/><path d="M7.5 5h9A4.5 4.5 0 0 1 21 9.5v3.8a3.2 3.2 0 0 1-5.6 2.1L14.2 14H9.8l-1.2 1.4A3.2 3.2 0 0 1 3 13.3V9.5A4.5 4.5 0 0 1 7.5 5z"/></svg>Game cities</span></summary><div class="body">
+      <div class="gc-list" id="gcList"></div>
+      <p class="note">Real places that famous games are set in or modelled on, drawn from OpenStreetMap with a matching palette. Game names belong to their owners; not affiliated.</p>
+    </div></details>
 
     <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
       <div class="swatches" id="swatches"></div>
@@ -891,7 +902,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 function setPlace(name,country,fiction=null){S.place=name;if(country!==undefined)S.country=country;S.fiction=fiction;
   document.title=(fiction?fiction.name:name)+" · MapMaking";typeof syncDisguise==="function"&&syncDisguise();$("placeLbl").innerHTML=fiction?`Disguised as <b>${esc(fiction.name)}</b>`:`<b>${esc(name)}</b>${S.country?" · "+esc(S.country):""}`;
   $("tTitle").placeholder=fiction?fiction.name:name;$("tSub").placeholder=fiction?"(none)":(S.country||"Country");saveHash();drawPreviewOverlay()}
-function goTo(lon,lat,zoom,name,country){if(!map)return;map.jumpTo({center:[lon,lat],zoom:zoom+S.detail,bearing:S.bearing});setPlace(name,country);syncCam()}
+function goTo(lon,lat,zoom,name,country){if(!map)return;map.jumpTo({center:[lon,lat],zoom:zoom+S.detail,bearing:S.bearing,pitch:S.pitch});setPlace(name,country);syncCam()}
 function fitBox(w,s,e,n,name,country){if(!map)return;map.fitBounds([[w,s],[e,n]],{padding:20,duration:0,maxZoom:15+S.detail,bearing:S.bearing,pitch:S.pitch});
   if(map.getZoom()-S.detail<10.5)map.jumpTo({zoom:10.5+S.detail});setPlace(name,country);syncCam()}
 async function geocode(q){
@@ -922,8 +933,17 @@ $("disguise").onclick=()=>{
   if(S.fiction){S.mirror=false;$("mirror").checked=false;S.bearing=0;setPlace(S.place,S.country,null);layout();syncCam();syncDisguise();toast("Back to the real "+S.place);return}
   S.mirror=Math.random()<.5;$("mirror").checked=S.mirror;S.bearing=Math.round(Math.random()*360-180);
   setPlace(S.place,undefined,fakeIdentity(Math.floor(Math.random()*1e9)));layout();syncCam();syncDisguise();toast("Rotated"+(S.mirror?", mirrored":"")+" and renamed")};
-$("surprise").onclick=()=>{if(MOBILE.matches)setTab(null);const c=CITIES[Math.floor(Math.random()*CITIES.length)];S.bearing=0;S.mirror=false;$("mirror").checked=false;
-  goTo(c[1]+(Math.random()-.5)*.02,c[2]+(Math.random()-.5)*.015,11.8+Math.random()*1.4,c[0],c[3]);layout()};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+$("surprise").onclick=()=>{if(MOBILE.matches)setTab(null);
+  const c=pick(CITIES),pal=pick(Object.keys(PALETTES).filter(k=>k!==S.palette));
+  S.palette=pal;S.colors={...PALETTES[pal]};S.mirror=false;
+  if(S.mode==="poster"){S.layout=pick(["fade","fade","block","border","circle"]);S.text.align=S.layout==="block"?"left":"center"}
+  S.text.font=pick(Object.keys(FONTS));S.text.title="";S.text.sub="";S.text.tag="";
+  S.pitch=Math.random()<.35?Math.round(25+Math.random()*30):0;
+  S.bearing=Math.random()<.35?Math.round((Math.random()-.5)*60):0;
+  goTo(c[1]+(Math.random()-.5)*.02,c[2]+(Math.random()-.5)*.015,11.8+Math.random()*1.4,c[0],c[3]);
+  syncAll();const F=FONTS[S.text.font];document.fonts&&document.fonts.load(`${F.tw} 40px ${F.fam}`).then(drawPreviewOverlay).catch(()=>{});
+  toast(`${c[0]} · ${pal}${S.mode==="poster"?" · "+S.layout:""}${S.pitch?" · tilted":""}`)};
 
 // ---------- export ----------
 async function renderPoster(btn){
@@ -1011,6 +1031,33 @@ document.addEventListener("gesturestart",e=>e.preventDefault());
 if(TOUCH)$("hint").textContent="Drag to pan · pinch to zoom";
 let sy=null;$("grabber").addEventListener("touchstart",e=>{sy=e.touches[0].clientY},{passive:true});
 $("grabber").addEventListener("touchend",e=>{if(sy!==null&&e.changedTouches[0].clientY-sy>30)setTab(null);sy=null},{passive:true});
+
+// ---------- game cities: real places behind famous game worlds ----------
+const GAME_CITIES=[
+  ["GTA V","Los Angeles","United States",-118.2437,34.0522,11.4,"GTA V","Los Santos"],
+  ["GTA IV","New York City","United States",-73.9712,40.7831,12.1,"GTA V","Liberty City"],
+  ["GTA Vice City","Miami","United States",-80.1918,25.7617,12.0,"Neon","Vice City"],
+  ["Assassin's Creed II","Florence","Italy",11.2558,43.7696,13.6,"Sepia","Renaissance Florence"],
+  ["Assassin's Creed Unity","Paris","France",2.3488,48.8534,12.8,"Mist","Revolutionary Paris"],
+  ["Watch Dogs","Chicago","United States",-87.6298,41.8781,12.4,"Tron","ctOS Chicago"],
+  ["Watch Dogs 2","San Francisco","United States",-122.4194,37.7749,12.4,"Cyberpunk","the Bay Area"],
+  ["Watch Dogs: Legion","London","United Kingdom",-0.1276,51.5072,12.4,"Slate","near-future London"],
+  ["Yakuza","Kabukichō","Tokyo, Japan",139.7036,35.6938,15.0,"Neon","Kamurocho"],
+  ["Persona 5","Shibuya","Tokyo, Japan",139.7016,35.658,14.4,"Ember","Shibuya"],
+  ["Red Dead Redemption 2","New Orleans","United States",-90.0715,29.9511,13.2,"Red Dead","Saint Denis"],
+  ["Fallout 3","Washington, D.C.","United States",-77.0365,38.8977,12.6,"Fallout","the Capital Wasteland"],
+  ["Fallout 4","Boston","United States",-71.0589,42.3601,12.8,"Fallout","the Commonwealth"],
+  ["Fallout: New Vegas","Las Vegas","United States",-115.1728,36.1147,12.6,"Fallout","New Vegas"],
+  ["The Last of Us","Pittsburgh","United States",-79.9959,40.4406,13.0,"Moss","Pittsburgh"],
+  ["Forza Horizon 5","Guanajuato","Mexico",-101.2574,21.019,14.2,"Terracotta","Guanajuato"]];
+GAME_CITIES.forEach(([game,city,country,lon,lat,z,pal,inGame])=>{
+  const b=document.createElement("button");b.type="button";b.className="gc";b.title=`${city}, the real setting of ${inGame} in ${game}`;
+  const P=PALETTES[pal];b.innerHTML=`<b>${esc(game)}</b><small>${esc(city)}</small><i style="background:linear-gradient(90deg,${P.bg} 0 34%,${P.mid} 34% 67%,${P.major} 67%)"></i>`;
+  b.onclick=()=>{if(MOBILE.matches)setTab(null);
+    S.palette=pal;S.colors={...PALETTES[pal]};S.bearing=0;S.pitch=0;S.mirror=false;
+    S.text.title="";S.text.sub="";S.text.tag=`Real-world setting of ${game}`;
+    goTo(lon,lat,z,city,country);syncAll();toast(`${city}: the city behind ${inGame}`)};
+  $("gcList").append(b)});
 
 // ---------- per-section reset ----------
 const SECTION_KEYS={"Palette":["palette","colors"],"Layout":["layout","margin"],"Text":["text"],"Size":["psize","orient","dpi","wsize","cw","ch","focus","grain"],
