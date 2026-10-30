@@ -11,7 +11,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 ## Features
 
 **Posters**
-- Seven layouts: **Fade** (the map fades into the paper), **Block** (a colored map panel with left-aligned text), **Border** (double-line frame), and map shapes **Circle**, **Heart**, **House** and **Hexagon**.
+- Five layouts: **Fade** (the map fades into the paper), **Block** (a colored map panel with left-aligned text), **Border** (double-line frame), **Circle** and **Heart**.
 - Text block with title, subtitle, coordinates and an optional tagline. Search fills in the city and country automatically.
 - Coordinates as degrees/minutes/seconds, decimal, or "latitude | longitude".
 - Six poster typefaces: Montserrat, Jost, Space Mono, Playfair Display, Cormorant Garamond and Barlow Condensed.
@@ -28,13 +28,11 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 - Add icons at the map center or by tapping the map: map pin, heart, star, home, flag, plane, target or dot. Each icon has its own color and an optional label.
 - Optional points from OpenStreetMap: stations, cafés and restaurants, nightlife, culture, shops.
 
-**Routes and journeys**
-- Upload a GPX or GeoJSON file (Strava, Garmin, Komoot…) to draw a run, ride, hike or road trip as a highlighted line with start and finish dots. The file stays on your device.
+**Journeys**
 - Connect your icons with a solid, dashed or dotted line, straight or curved, for "where we met → first home → today" posters.
 
 **Print**
-- **Print PDF** sized in mm for print shops, with optional 3 mm bleed and crop marks.
-- Map shapes: Circle, Heart, House and Hexagon, besides the Fade, Block and Border layouts.
+- **Print PDF** sized exactly in mm for print shops.
 
 **Framed mockups**
 - Preview the poster framed on a wall (black, oak, walnut or white frame, optional mat, six wall colors).
@@ -44,11 +42,6 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 **Wallpapers**
 - Phone, tablet, handheld and desktop sizes up to 5K, with the text on top of the map.
-
-**Game cities**
-- 16 real places that famous games are set in or modelled on, each with a matching palette: Los Angeles (GTA V), New York (GTA IV), Miami (Vice City), Florence (Assassin's Creed II), Paris (Assassin's Creed Unity), Chicago, San Francisco and London (Watch Dogs), Kabukichō (Yakuza), Shibuya (Persona 5), New Orleans (Red Dead Redemption 2), Washington D.C., Boston and Las Vegas (Fallout), Pittsburgh (The Last of Us) and Guanajuato (Forza Horizon 5).
-- The poster shows the game name as the title with the real city and country underneath. Surprise me sometimes picks one of these too.
-- The maps are drawn from OpenStreetMap; no game artwork is included.
 
 **More**
 - **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.

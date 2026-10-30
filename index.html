@@ -139,6 +139,7 @@ summary:hover{color:var(--ink)}
 .resetBox{display:flex;justify-content:center;padding:4px 0 8px}
 .linkbtn{border:0;background:none;color:var(--muted);font:500 13px var(--f-body);cursor:pointer;padding:8px 12px;border-radius:8px}
 .linkbtn:hover{color:var(--ink);background:var(--fill)}
+.osm{text-align:center;font-size:11px;color:var(--muted);margin:0 0 8px}.osm a{color:inherit}
 .linkbtn.armed{color:#fff;background:var(--warn)}
 summary .st{display:flex;align-items:center;gap:8px;flex:1}
 .sreset{pointer-events:auto;border:0;background:none;color:var(--muted);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;cursor:pointer;margin-right:6px;opacity:0;transition:opacity .15s}
@@ -193,7 +194,7 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .btn.on{background:var(--accent);color:#fff}
 .btn:disabled{opacity:.55;cursor:progress}
 :focus-visible{outline:3px solid rgba(60,60,67,.45);outline-offset:2px}
-.layouts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.layouts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .lay{border:0;background:none;padding:0;cursor:pointer;display:grid;gap:6px;justify-items:center;font:500 12px var(--f-body);color:var(--ink)}
 .lay svg{width:100%;max-width:64px;aspect-ratio:5/7;height:auto;border-radius:6px;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.08);transition:box-shadow .15s,transform .15s}
 .lay:hover svg{transform:translateY(-1px)}
@@ -211,12 +212,6 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 #myDesigns .row2{grid-template-columns:1fr auto}
 .shop{display:grid;gap:6px}.shop .btn{text-align:center;text-decoration:none}
 .ready-shop{text-align:center;font:600 13.5px var(--f-body);color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-.gc-list{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:6px}
-.gc{border:0;background:var(--bg);border-radius:10px;padding:9px 10px;text-align:left;cursor:pointer;display:grid;grid-template-rows:2.5em auto 1fr;gap:1px;min-width:0;min-height:76px;transition:background .15s}
-.gc:hover{background:var(--fill)}
-.gc b{font:600 13px/1.25 var(--f-body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;align-self:start}
-.gc small{font:12px var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gc i{display:block;height:4px;border-radius:2px;align-self:end;margin-top:6px}
 .swgroup{grid-column:1/-1;font:600 11.5px var(--f-body);color:var(--muted);letter-spacing:.02em;margin:6px 2px -2px}
 .swgroup:first-child{margin-top:0}
 .sw{border:0;border-radius:12px;padding:0;aspect-ratio:1.55;max-width:100%;cursor:pointer;position:relative;overflow:hidden;background:none;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
@@ -228,10 +223,6 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .colors label{display:grid;gap:5px;font-size:11px;color:var(--muted);text-align:center}
 .pins{display:grid;gap:6px}
 .mini-color{width:44px!important;height:30px!important}
-.routeInfo{display:grid;gap:4px}
-.routeInfo b{font:600 14px var(--f-body)}
-.routeInfo small{color:var(--muted);font-size:12.5px}
-.routeInfo .btns{margin-top:4px}
 .jopt.off{display:none}
 .pins:empty{display:none}
 .pin{display:grid;gap:8px;background:var(--bg);border-radius:12px;padding:10px}
@@ -270,8 +261,6 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
   padding:12px max(20px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) 20px}
 .readout{font:500 12.5px var(--f-body);color:var(--muted);font-variant-numeric:tabular-nums}
 .readout b{color:var(--ink);font-weight:600}
-.credit{position:absolute;right:16px;bottom:10px;font:10.5px var(--f-body);color:var(--muted);z-index:2}
-.credit a{color:inherit}
 .dock{position:absolute;right:20px;top:50%;transform:translateY(-50%);z-index:3;display:grid;gap:6px;padding:8px;width:172px;
   border-radius:22px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8);
   box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 12px 32px rgba(0,0,0,.12);max-width:calc(100% - 32px)}
@@ -309,7 +298,6 @@ body{touch-action:manipulation}
   .dock-btns{display:flex}
   .dock .readout{display:none}
   .dbtn{padding:9px 14px;font-size:14px;border-radius:13px}
-  .credit{right:10px;bottom:4px;font-size:9.5px}
   .dl,.hint{display:none!important}
   .ml{display:inline}
   .mnav-title{display:grid;line-height:1.15;min-width:0}
@@ -367,10 +355,6 @@ body{touch-action:manipulation}
       <p class="note" id="designEmpty">Save designs to come back to them later. They are kept in this browser only.</p>
     </div></details>
 
-    <details data-tab="place" id="gameCities"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9h4M8 7v4"/><circle cx="15.5" cy="10" r=".9" fill="currentColor"/><circle cx="17.5" cy="12.5" r=".9" fill="currentColor"/><path d="M7.5 5h9A4.5 4.5 0 0 1 21 9.5v3.8a3.2 3.2 0 0 1-5.6 2.1L14.2 14H9.8l-1.2 1.4A3.2 3.2 0 0 1 3 13.3V9.5A4.5 4.5 0 0 1 7.5 5z"/></svg>Game cities</span></summary><div class="body">
-      <div class="gc-list" id="gcList"></div>
-      <p class="note">Real places that famous games are set in or modelled on, drawn from OpenStreetMap with a matching palette. Game names belong to their owners; not affiliated.</p>
-    </div></details>
 
     <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
       <div class="swatches" id="swatches"></div>
@@ -427,9 +411,6 @@ body{touch-action:manipulation}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><input type="number" id="cw" min="200" max="10000" aria-label="Width"><input type="number" id="ch" min="200" max="10000" aria-label="Height"></div></div>
       <div class="row"><label for="focus">Edge fade</label><input type="range" id="focus" min="0" max="1" step="0.02"><output></output></div>
       <div class="row"><label for="grain">Paper grain</label><input type="range" id="grain" min="0" max="1" step="0.02"><output></output></div>
-      <div class="sw-row" data-mode="poster"><label for="pdfBleed">PDF: 3 mm bleed</label><input type="checkbox" id="pdfBleed"></div>
-      <div class="sw-row" data-mode="poster"><label for="pdfMarks">PDF: crop marks</label><input type="checkbox" id="pdfMarks"></div>
-      <p class="note" data-mode="poster">Print PDF is sized in mm for print shops. Ask your printer whether they want bleed and crop marks; most online printers want bleed without marks.</p>
     </div></details>
 
     <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
@@ -444,14 +425,6 @@ body{touch-action:manipulation}
       <p class="note jopt">The line follows the icons in the order listed above, e.g. where we met → first home → today.</p>
     </div></details>
 
-    <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c3-1 3.5-5 7-5s3 3 6 2 2.5-6 3-9"/><circle cx="4" cy="19" r="1.6" fill="currentColor"/><circle cx="20" cy="7" r="1.6" fill="currentColor"/></svg>Route</span></summary><div class="body">
-      <div class="btns"><label class="btn primary" for="gpxFile" id="gpxBtn">Upload GPX or GeoJSON</label><input type="file" id="gpxFile" accept=".gpx,.geojson,.json,application/gpx+xml,application/geo+json" hidden></div>
-      <div class="routeInfo" id="routeInfo" hidden><b id="routeName"></b><small id="routeMeta"></small>
-        <div class="btns"><button type="button" class="btn" id="routeFit">Fit map to route</button><button type="button" class="btn" id="routeDel">Remove</button></div></div>
-      <div class="layer"><label for="rWidth">Thickness</label><input type="range" id="rWidth" min="1" max="16" step="0.5"><output></output><input type="color" id="rColor" aria-label="Route color" class="mini-color"></div>
-      <div class="sw-row"><label for="rEnds">Start and finish dots</label><input type="checkbox" id="rEnds"></div>
-      <p class="note">Draw a run, ride, hike or road trip from Strava, Garmin, Komoot or any app that exports GPX. The file stays on your device.</p>
-    </div></details>
 
     <details data-tab="camera"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
       <div class="row"><label for="zoom">Zoom</label><input type="range" id="zoom" min="9" max="17" step="0.01"><output></output></div>
@@ -486,6 +459,7 @@ body{touch-action:manipulation}
     </div></details>
 
     <div class="resetBox" data-tab="place"><button type="button" class="linkbtn" id="resetAll">Reset all settings</button></div>
+    <p class="osm" data-tab="place">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></p>
   </aside>
 
   <main class="stage-wrap">
@@ -509,7 +483,6 @@ body{touch-action:manipulation}
           <button class="dbtn primary" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg><span class="dl">Export PNG</span><span class="ml">Export</span></button>
         </div>
       </div>
-      <div class="credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a></div>
     </div>
   </main>
 </div>
@@ -603,7 +576,7 @@ const DEF={mode:"poster",layout:"fade",margin:.07,center:[9.19,45.4642],zoom:12.
   palette:"Ink",colors:{...PALETTES.Ink},
   w:Object.fromEntries(TIERS.map(t=>[t.id,t.def])),on:Object.fromEntries(TIERS.map(t=>[t.id,t.on])),
   buildings:false,water:true,parks:true,tunnels:true,weight:1,glow:0,zscale:0,
-  poi:{cat:"none",size:3,style:"dot"},pins:[],pinSize:10,lastIcon:"pin",journey:{on:false,style:"dashed",curve:true,width:2.5,color:""},route:{segs:[],name:"",km:0,color:"",width:4,ends:true},pdf:{bleed:true,marks:true},
+  poi:{cat:"none",size:3,style:"dot"},pins:[],pinSize:10,lastIcon:"pin",journey:{on:false,style:"dashed",curve:true,width:2.5,color:""},pdf:{bleed:false,marks:false},
   psize:"A3",orient:"portrait",dpi:300,wsize:"1080x2400",cw:1080,ch:2400,focus:0,grain:0,
   text:{pos:"bottom",title:"",sub:"",coord:"dms",tag:"",font:"montserrat",align:"center",scale:1,upper:true,lines:false,credit:true},
   mock:{on:false,frame:"black",mat:"none",wall:"warm"},fiction:null};
@@ -613,7 +586,7 @@ let S=structuredClone(DEF);
 const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/,"");
 function saveHash(){clearTimeout(saveHash.t);saveHash.t=setTimeout(()=>{try{history.replaceState(null,"","#"+enc(S))}catch(e){}},400)}
 (function loadHash(){try{if(location.hash.length>10){const o=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
-  const d=structuredClone(DEF);S={...d,...o};for(const k of["colors","w","on","poi","text","mock","journey","route","pdf"])S[k]={...d[k],...(o[k]||{})}}}catch(e){}
+  const d=structuredClone(DEF);S={...d,...o};for(const k of["colors","w","on","poi","text","mock","journey","pdf"])S[k]={...d[k],...(o[k]||{})}}}catch(e){}
   S.pins=(S.pins||[]).map(p=>Array.isArray(p)?{ll:p,icon:"pin",color:"",label:""}:p)})();
 
 // ---------- geometry ----------
@@ -628,14 +601,13 @@ function outSize(){
   if(S.wsize==="custom")return[cl(S.cw,1080),cl(S.ch,2400)];
   return S.wsize.split("x").map(Number);
 }
-const SHAPES=["circle","heart","house","hex"];
+const SHAPES=["circle","heart"];
 function shapePath(ctx,M,shape){const X=v=>M.x+v*M.w,Y=v=>M.y+v*M.h;
   if(shape==="circle"){ctx.moveTo(M.x+M.w,M.y+M.h/2);ctx.arc(M.x+M.w/2,M.y+M.h/2,M.w/2,0,Math.PI*2);return}
   if(shape==="heart"){ctx.moveTo(X(.5),Y(.96));ctx.bezierCurveTo(X(.14),Y(.7),X(0),Y(.48),X(0),Y(.3));ctx.bezierCurveTo(X(0),Y(.13),X(.13),Y(.02),X(.28),Y(.02));
     ctx.bezierCurveTo(X(.39),Y(.02),X(.46),Y(.08),X(.5),Y(.18));ctx.bezierCurveTo(X(.54),Y(.08),X(.61),Y(.02),X(.72),Y(.02));
     ctx.bezierCurveTo(X(.87),Y(.02),X(1),Y(.13),X(1),Y(.3));ctx.bezierCurveTo(X(1),Y(.48),X(.86),Y(.7),X(.5),Y(.96));ctx.closePath();return}
-  const pts=shape==="house"?[[.5,.02],[.98,.44],[.86,.44],[.86,.98],[.14,.98],[.14,.44],[.02,.44]]:[[.5,0],[.933,.25],[.933,.75],[.5,1],[.067,.75],[.067,.25]];
-  pts.forEach(([a,b],i)=>i?ctx.lineTo(X(a),Y(b)):ctx.moveTo(X(a),Y(b)));ctx.closePath()}
+}
 function geo(W,H){
   const u=Math.min(W,H)/1000,m=S.margin*Math.min(W,H),L=S.mode==="poster"?S.layout:"full";
   const portrait=H>=W,textH=(portrait?.19:.24)*H;
@@ -657,12 +629,6 @@ function width(base,factor){
   if(!zs)return f(v(13+d));
   return["interpolate",["exponential",2**zs],["zoom"],4,f(v(4)),22,f(v(22))];
 }
-// polyline encoding keeps uploaded routes small enough for the share link
-function encPoly(pts){let o="",pl=0,pg=0;const e=v=>{v=v<0?~(v<<1):v<<1;while(v>=32){o+=String.fromCharCode((32|(v&31))+63);v>>=5}o+=String.fromCharCode(v+63)};
-  for(const[lon,lat]of pts){const a=Math.round(lat*1e5),b=Math.round(lon*1e5);e(a-pl);e(b-pg);pl=a;pg=b}return o}
-function decPoly(str){const out=[];let i=0,lat=0,lon=0;const d=()=>{let r=0,sh=0,b;do{b=str.charCodeAt(i++)-63;r|=(b&31)<<sh;sh+=5}while(b>=32);return r&1?~(r>>1):r>>1};
-  while(i<str.length){lat+=d();lon+=d();out.push([lon/1e5,lat/1e5])}return out}
-let _rc=[],_rk=null;function routeCoords(){const k=S.route.segs.join("|");if(k!==_rk){_rk=k;_rc=S.route.segs.map(decPoly).filter(x=>x.length>1)}return _rc}
 function buildStyle(){
   const c=S.colors,k=2**S.detail,L=[],notTunnel=S.tunnels?["literal",true]:["!=",["get","brunnel"],"tunnel"];
   L.push({id:"bg",type:"background",paint:{"background-color":c.bg}});
@@ -689,14 +655,6 @@ function buildStyle(){
     L.push({id:"poi",type:"circle",source:"omt","source-layer":"poi",filter,paint:{"circle-color":c.poi,"circle-radius":r,"circle-opacity":S.poi.style==="ring"?0:1,"circle-stroke-color":c.poi,"circle-stroke-width":S.poi.style==="ring"?Math.max(.6,r*.35):0,"circle-pitch-alignment":"map"}});
   }
   const src={omt:{type:"vector",url:TILES,attribution:"© OpenStreetMap contributors · OpenFreeMap"}};
-  const segs=routeCoords();
-  if(segs.length){const rc=S.route.color||S.colors.pin,rw=S.route.width;
-    src.route={type:"geojson",data:{type:"FeatureCollection",features:[{type:"Feature",properties:{},geometry:{type:"MultiLineString",coordinates:segs}}]}};
-    L.push({id:"route-case",type:"line",source:"route",layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":c.bg,"line-width":width(rw*1.8),"line-opacity":.85}});
-    L.push({id:"route",type:"line",source:"route",layout:{"line-cap":"round","line-join":"round"},paint:{"line-color":rc,"line-width":width(rw)}});
-    if(S.route.ends){const a=segs[0][0],z=segs[segs.length-1].at(-1);
-      src.routeEnds={type:"geojson",data:{type:"FeatureCollection",features:[{type:"Feature",properties:{k:"s"},geometry:{type:"Point",coordinates:a}},{type:"Feature",properties:{k:"e"},geometry:{type:"Point",coordinates:z}}]}};
-      L.push({id:"route-ends",type:"circle",source:"routeEnds",paint:{"circle-radius":rw*1.5*k,"circle-color":["match",["get","k"],"s",c.bg,rc],"circle-stroke-color":rc,"circle-stroke-width":rw*.7*k,"circle-pitch-alignment":"map"}})}}
   return{version:8,sources:src,layers:L};
 }
 
@@ -878,9 +836,7 @@ const LAYS=[["fade","Fade",'<rect x="6" y="6" width="38" height="44" fill="#9a9a
   ["block","Block",'<rect x="4" y="4" width="42" height="50" fill="#8fb0a5"/><rect x="6" y="58" width="18" height="3.2" rx="1" fill="#222"/><rect x="6" y="63.5" width="11" height="1.6" fill="#999"/>'],
   ["border","Border",'<rect x="3.5" y="3.5" width="43" height="63" fill="none" stroke="#222" stroke-width="1.2"/><rect x="6" y="6" width="38" height="58" fill="none" stroke="#222" stroke-width=".5"/><rect x="9" y="9" width="32" height="40" fill="#9a9a9a" opacity=".55"/><rect x="16" y="54" width="18" height="3" rx="1" fill="#222"/><path d="M12 60.5h7M31 60.5h7" stroke="#222" stroke-width=".7"/>'],
   ["circle","Circle",'<circle cx="25" cy="27" r="18" fill="#333"/><rect x="14" y="52" width="22" height="3" rx="1" fill="#222"/><rect x="19" y="58" width="12" height="1.6" fill="#999"/>'],
-  ["heart","Heart",'<path d="M25 44C14 37 8 31 8 23.5 8 17 12.5 12 18 12c3.2 0 5.6 1.7 7 4.4 1.4-2.7 3.8-4.4 7-4.4 5.5 0 10 5 10 11.5C42 31 36 37 25 44z" fill="#333"/><rect x="14" y="52" width="22" height="3" rx="1" fill="#222"/><rect x="19" y="58" width="12" height="1.6" fill="#999"/>'],
-  ["house","House",'<path d="M25 9 43 25h-5v19H12V25H7z" fill="#333"/><rect x="14" y="52" width="22" height="3" rx="1" fill="#222"/><rect x="19" y="58" width="12" height="1.6" fill="#999"/>'],
-  ["hex","Hexagon",'<path d="M25 8 41 17.5v19L25 46 9 36.5v-19z" fill="#333"/><rect x="14" y="52" width="22" height="3" rx="1" fill="#222"/><rect x="19" y="58" width="12" height="1.6" fill="#999"/>']];
+  ["heart","Heart",'<path d="M25 44C14 37 8 31 8 23.5 8 17 12.5 12 18 12c3.2 0 5.6 1.7 7 4.4 1.4-2.7 3.8-4.4 7-4.4 5.5 0 10 5 10 11.5C42 31 36 37 25 44z" fill="#333"/><rect x="14" y="52" width="22" height="3" rx="1" fill="#222"/><rect x="19" y="58" width="12" height="1.6" fill="#999"/>']];
 LAYS.forEach(([v,n,svg])=>{const b=document.createElement("button");b.type="button";b.className="lay";b.dataset.v=v;
   b.innerHTML=`<svg viewBox="0 0 50 70"><defs><linearGradient id="gf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>${svg}</svg>${n}`;
   b.onclick=()=>{S.layout=v;if(v==="block"&&S.text.align==="center"&&!S._alignTouched)S.text.align="left";if(v!=="block"&&!S._alignTouched)S.text.align="center";$("alignSeg")._sync();syncLay();layout();saveHash()};$("layouts").append(b)});
@@ -1032,9 +988,6 @@ $("surprise").onclick=()=>{if(MOBILE.matches)setTab(null);
   S.text.font=pick(Object.keys(FONTS));S.text.title="";S.text.sub="";S.text.tag="";
   S.pitch=Math.random()<.35?Math.round(25+Math.random()*30):0;
   S.bearing=Math.random()<.35?Math.round((Math.random()-.5)*60):0;
-  if(Math.random()<.3){const i=Math.floor(Math.random()*GAME_CITIES.length);applyGameCity(i,Math.random()<.5);
-    const F=FONTS[S.text.font];document.fonts&&document.fonts.load(`${F.tw} 40px ${F.fam}`).then(drawPreviewOverlay).catch(()=>{});
-    toast(`${GAME_CITIES[i][0]} · ${GAME_CITIES[i][1]} · ${S.palette}`);return}
   goTo(c[1]+(Math.random()-.5)*.02,c[2]+(Math.random()-.5)*.015,11.8+Math.random()*1.4,c[0],c[3]);
   syncAll();const F=FONTS[S.text.font];document.fonts&&document.fonts.load(`${F.tw} 40px ${F.fam}`).then(drawPreviewOverlay).catch(()=>{});
   toast(`${c[0]} · ${pal}${S.mode==="poster"?" · "+S.layout:""}${S.pitch?" · tilted":""}`)};
@@ -1132,69 +1085,6 @@ if(TOUCH)$("hint").textContent="Drag to pan · pinch to zoom";
 let sy=null;$("grabber").addEventListener("touchstart",e=>{sy=e.touches[0].clientY},{passive:true});
 $("grabber").addEventListener("touchend",e=>{if(sy!==null&&e.changedTouches[0].clientY-sy>30)setTab(null);sy=null},{passive:true});
 
-// ---------- game cities: real places behind famous game worlds ----------
-const GAME_CITIES=[
-  ["GTA V","Los Angeles","United States",-118.2437,34.0522,11.4,"GTA V","Los Santos"],
-  ["GTA IV","New York City","United States",-73.9712,40.7831,12.1,"GTA V","Liberty City"],
-  ["GTA Vice City","Miami","United States",-80.1918,25.7617,12.0,"Neon","Vice City"],
-  ["Assassin's Creed II","Florence","Italy",11.2558,43.7696,13.6,"Sepia","Renaissance Florence"],
-  ["Assassin's Creed Unity","Paris","France",2.3488,48.8534,12.8,"Mist","Revolutionary Paris"],
-  ["Watch Dogs","Chicago","United States",-87.6298,41.8781,12.4,"Tron","ctOS Chicago"],
-  ["Watch Dogs 2","San Francisco","United States",-122.4194,37.7749,12.4,"Cyberpunk","the Bay Area"],
-  ["Watch Dogs: Legion","London","United Kingdom",-0.1276,51.5072,12.4,"Slate","near-future London"],
-  ["Yakuza","Kabukichō","Tokyo, Japan",139.7036,35.6938,15.0,"Neon","Kamurocho"],
-  ["Persona 5","Shibuya","Tokyo, Japan",139.7016,35.658,14.4,"Ember","Shibuya"],
-  ["Red Dead Redemption 2","New Orleans","United States",-90.0715,29.9511,13.2,"Red Dead","Saint Denis"],
-  ["Fallout 3","Washington, D.C.","United States",-77.0365,38.8977,12.6,"Fallout","the Capital Wasteland"],
-  ["Fallout 4","Boston","United States",-71.0589,42.3601,12.8,"Fallout","the Commonwealth"],
-  ["Fallout: New Vegas","Las Vegas","United States",-115.1728,36.1147,12.6,"Fallout","New Vegas"],
-  ["The Last of Us","Pittsburgh","United States",-79.9959,40.4406,13.0,"Moss","Pittsburgh"],
-  ["Forza Horizon 5","Guanajuato","Mexico",-101.2574,21.019,14.2,"Terracotta","Guanajuato"]];
-// game name as the poster title, the real city and country underneath
-function applyGameCity(i,keepPalette){const[game,city,country,lon,lat,z,pal]=GAME_CITIES[i];
-  if(!keepPalette){S.palette=pal;S.colors={...PALETTES[pal]}}
-  S.text.title=game;S.text.sub=`${city}, ${country}`;S.text.tag="";
-  goTo(lon,lat,z,city,country);syncAll()}
-GAME_CITIES.forEach((gc)=>{const[game,city,country,lon,lat,z,pal,inGame]=gc;
-  const b=document.createElement("button");b.type="button";b.className="gc";b.title=`${city}, the real setting of ${inGame} in ${game}`;
-  const P=PALETTES[pal];b.innerHTML=`<b>${esc(game)}</b><small>${esc(city)}</small><i style="background:linear-gradient(90deg,${P.bg} 0 34%,${P.mid} 34% 67%,${P.major} 67%)"></i>`;
-  b.onclick=()=>{if(MOBILE.matches)setTab(null);S.bearing=0;S.pitch=0;S.mirror=false;applyGameCity(GAME_CITIES.indexOf(gc));toast(`${game} · ${city}`)};
-  $("gcList").append(b)});
-
-// ---------- route upload ----------
-function hav(a,b){const R=6371,t=Math.PI/180,dl=(b[1]-a[1])*t,dn=(b[0]-a[0])*t,x=Math.sin(dl/2)**2+Math.cos(a[1]*t)*Math.cos(b[1]*t)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
-function simplify(pts,tol){if(pts.length<3)return pts;const keep=new Uint8Array(pts.length);keep[0]=keep[pts.length-1]=1;const st=[[0,pts.length-1]];
-  while(st.length){const[a,b]=st.pop();let md=0,mi=-1;const[x1,y1]=pts[a],[x2,y2]=pts[b],dx=x2-x1,dy=y2-y1,L2=dx*dx+dy*dy||1e-12;
-    for(let i=a+1;i<b;i++){const[x,y]=pts[i];let t=((x-x1)*dx+(y-y1)*dy)/L2;t=Math.max(0,Math.min(1,t));const ex=x1+t*dx-x,ey=y1+t*dy-y,d=ex*ex+ey*ey;if(d>md){md=d;mi=i}}
-    if(mi>0&&md>tol*tol){keep[mi]=1;st.push([a,mi],[mi,b])}}return pts.filter((_,i)=>keep[i])}
-function parseRoute(text,fname){const segs=[];let name="";const tx=text.trim();
-  if(tx.startsWith("<")){const doc=new DOMParser().parseFromString(tx,"application/xml");if(doc.querySelector("parsererror"))throw new Error("This GPX file could not be read.");
-    name=(doc.querySelector("trk > name, rte > name, metadata > name")||{}).textContent||"";
-    doc.querySelectorAll("trkseg").forEach(sg=>segs.push([...sg.querySelectorAll("trkpt")].map(p=>[+p.getAttribute("lon"),+p.getAttribute("lat")])));
-    doc.querySelectorAll("rte").forEach(r=>segs.push([...r.querySelectorAll("rtept")].map(p=>[+p.getAttribute("lon"),+p.getAttribute("lat")])))}
-  else{const j=JSON.parse(tx),feats=j.type==="FeatureCollection"?j.features:j.type==="Feature"?[j]:[{geometry:j}];
-    for(const f of feats){const gm=f&&f.geometry;if(!gm)continue;if(!name&&f.properties&&f.properties.name)name=f.properties.name;
-      if(gm.type==="LineString")segs.push(gm.coordinates.map(c=>[c[0],c[1]]));if(gm.type==="MultiLineString")gm.coordinates.forEach(l=>segs.push(l.map(c=>[c[0],c[1]])))}}
-  const good=segs.map(sg=>sg.filter(p=>isFinite(p[0])&&isFinite(p[1]))).filter(sg=>sg.length>1);
-  if(!good.length)throw new Error("No track or route lines were found in this file.");
-  let km=0;good.forEach(sg=>{for(let i=1;i<sg.length;i++)km+=hav(sg[i-1],sg[i])});
-  const total=good.reduce((a,sg)=>a+sg.length,0);let tol=0,out=good;
-  while(out.reduce((a,sg)=>a+sg.length,0)>1500){tol=tol?tol*1.6:1e-5;out=good.map(sg=>simplify(sg,tol))}
-  return{segs:out.map(encPoly),name:name.trim()||fname.replace(/\.[^.]+$/,""),km,points:total}}
-function routeBounds(){const segs=routeCoords();let w=180,s=90,e=-180,n=-90;segs.forEach(sg=>sg.forEach(([x,y])=>{w=Math.min(w,x);e=Math.max(e,x);s=Math.min(s,y);n=Math.max(n,y)}));return[[w,s],[e,n]]}
-function fitRoute(){if(!map||!routeCoords().length)return;map.fitBounds(routeBounds(),{padding:Math.round(Math.min(vw,vh)*.12),duration:0,bearing:S.bearing,pitch:S.pitch,maxZoom:16+S.detail});syncCam()}
-function syncRoute(){const has=S.route.segs.length>0;$("routeInfo").hidden=!has;$("gpxBtn").textContent=has?"Replace route":"Upload GPX or GeoJSON";
-  if(has){$("routeName").textContent=S.route.name||"Route";$("routeMeta").textContent=`${S.route.km<10?S.route.km.toFixed(2):S.route.km.toFixed(1)} km · drawn in ${S.route.color?"its own":"the icon"} color`}
-  $("rColor").value=S.route.color||S.colors.pin;$("rEnds").checked=S.route.ends}
-$("gpxFile").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
-  try{const r=parseRoute(await f.text(),f.name);S.route.segs=r.segs;S.route.name=r.name;S.route.km=r.km;syncRoute();restyle();fitRoute();toast(`${r.name} · ${r.km.toFixed(1)} km added`)}
-  catch(err){toast(err.message||"This file could not be read.")}};
-$("routeFit").onclick=fitRoute;
-$("routeDel").onclick=()=>{const old=structuredClone(S.route);S.route.segs=[];S.route.name="";S.route.km=0;syncRoute();restyle();toast("Route removed",()=>{S.route=old;syncRoute();restyle()})};
-bindRange("rWidth",()=>S.route.width,v=>S.route.width=v,v=>v.toFixed(1),restyle);
-$("rColor").oninput=e=>{S.route.color=e.target.value;syncRoute();restyle()};
-$("rEnds").onchange=e=>{S.route.ends=e.target.checked;restyle()};
-
 // ---------- journey line ----------
 function syncJourney(){$("jOn").checked=S.journey.on;$("jCurve").checked=S.journey.curve;$("jColor").value=S.journey.color||S.colors.pin;
   document.querySelectorAll(".jopt").forEach(el=>el.classList.toggle("off",!S.journey.on));$("jStyle")._sync&&$("jStyle")._sync()}
@@ -1224,15 +1114,13 @@ $("pdfBtn").onclick=()=>withBtn($("pdfBtn"),"Loading…",async()=>{
     [[x0,y0],[x1,y0],[x0,y1],[x1,y1]].forEach(([x,y])=>{const sx=x===x0?-1:1,sy=y===y0?-1:1;doc.line(x+sx*o,y,x+sx*(o+L),y);doc.line(x,y+sy*o,x,y+sy*(o+L))})}}
   const dpi=Math.round(W/(tw/25.4)),name=`${fileBase()}-${S.mode==="poster"&&S.psize!=="custom"?S.psize:Math.round(tw)+"x"+Math.round(th)+"mm"}-print.pdf`;
   const blob=doc.output("blob");
-  await deliverBlob(blob,name,c,`Print PDF · ${Math.round(tw)} × ${Math.round(th)} mm${b?" + 3 mm bleed":""}${sl?" with crop marks":""} · ${dpi} dpi`)});
-$("pdfBleed").checked=S.pdf.bleed;$("pdfBleed").onchange=e=>{S.pdf.bleed=e.target.checked;saveHash()};
-$("pdfMarks").checked=S.pdf.marks;$("pdfMarks").onchange=e=>{S.pdf.marks=e.target.checked;saveHash()};
+  await deliverBlob(blob,name,c,`Print PDF · ${Math.round(tw)} × ${Math.round(th)} mm · ${dpi} dpi`)});
 
 // ---------- my designs (saved in this browser) ----------
 const DKEY="mapmaking-designs";
 function getDesigns(){try{return JSON.parse(localStorage.getItem(DKEY)||"[]")}catch(e){return null}}
 function putDesigns(a){try{localStorage.setItem(DKEY,JSON.stringify(a));return true}catch(e){toast("Your browser blocked saving. Use Copy link instead.");return false}}
-function mergeState(o){const d=structuredClone(DEF),n={...d,...o};for(const k of["colors","w","on","poi","text","mock","journey","route","pdf"])n[k]={...d[k],...(o[k]||{})};
+function mergeState(o){const d=structuredClone(DEF),n={...d,...o};for(const k of["colors","w","on","poi","text","mock","journey","pdf"])n[k]={...d[k],...(o[k]||{})};
   n.pins=(n.pins||[]).map(p=>Array.isArray(p)?{ll:p,icon:"pin",color:"",label:""}:p);return n}
 function renderDesigns(){const L=$("designList"),a=getDesigns();L.innerHTML="";
   if(a===null){L.innerHTML='<p class="note">Saving is blocked in this browser (private mode?). Copy link still works.</p>';return}
@@ -1240,7 +1128,7 @@ function renderDesigns(){const L=$("designList"),a=getDesigns();L.innerHTML="";
   a.forEach((d,i)=>{const P=d.state.colors||{},el=document.createElement("div");el.className="design";
     el.innerHTML=`<span class="dchip" style="background:linear-gradient(135deg,${P.paper||"#fff"} 0 40%,${P.mid||"#888"} 40% 70%,${P.major||"#111"} 70%)"></span><span class="dtext"><b>${esc(d.name)}</b><small>${esc(d.state.place||"")} · ${new Date(d.date).toLocaleDateString()}</small></span>
       <button type="button" class="btn" data-a="open">Open</button><button type="button" class="ib del" data-a="del" aria-label="Delete ${esc(d.name)}">✕</button>`;
-    el.querySelector('[data-a="open"]').onclick=()=>{const keepOpen=S.mode;S=mergeState(d.state);setMode(S.mode);setPlace(S.place,S.country,S.fiction);syncAll();syncRoute();syncJourney();syncDisguise();toast(`Opened ${d.name}`);if(MOBILE.matches)setTab(null)};
+    el.querySelector('[data-a="open"]').onclick=()=>{const keepOpen=S.mode;S=mergeState(d.state);setMode(S.mode);setPlace(S.place,S.country,S.fiction);syncAll();syncJourney();syncDisguise();toast(`Opened ${d.name}`);if(MOBILE.matches)setTab(null)};
     el.querySelector('[data-a="del"]').onclick=()=>{const all=getDesigns()||[];const gone=all.splice(i,1)[0];putDesigns(all);renderDesigns();toast(`Deleted ${gone.name}`,()=>{const now=getDesigns()||[];now.splice(i,0,gone);putDesigns(now);renderDesigns()})};
     L.append(el)})}
 $("designSave").onclick=()=>{const a=getDesigns();if(a===null){toast("Your browser blocked saving. Use Copy link instead.");return}
@@ -1262,7 +1150,7 @@ function syncShop(){const q=frameQuery(),k=storeKey(),[dom,word]=STORES[k],tag=S
 
 // ---------- per-section reset ----------
 const SECTION_KEYS={"Palette":["palette","colors"],"Layout":["layout","margin"],"Text":["text"],"Size":["psize","orient","dpi","wsize","cw","ch","focus","grain"],
-  "Icons & pins":["pins","pinSize","lastIcon","journey"],"Route":["route"],"Camera":["zoom","bearing","pitch","detail","mirror"],
+  "Icons & pins":["pins","pinSize","lastIcon","journey"],"Camera":["zoom","bearing","pitch","detail","mirror"],
   "Layers & line weight":["w","on","buildings","water","parks","tunnels","weight","glow","zscale"],"Frame & wall preview":["mock"],"Points of interest":["poi"]};
 function syncAll(){
   document.querySelectorAll("input[type=range]").forEach(el=>{if(el._get){el.value=el._get();el._out()}});
@@ -1273,7 +1161,7 @@ function syncAll(){
   $("tUpper").checked=S.text.upper;$("tLines").checked=S.text.lines;$("tCredit").checked=S.text.credit;$("mirror").checked=S.mirror;
   $("mockOn").checked=S.mock.on;$("mockFrame").value=S.mock.frame;$("mockMat").value=S.mock.mat;$("mockWall").value=S.mock.wall;$("cw").value=S.cw;$("ch").value=S.ch;
   ["alignSeg","orientSeg","dpiSeg"].forEach(id=>$(id)._sync&&$(id)._sync());
-  fillSizes();syncColors();syncLay();renderPins();poiHint();syncRoute();syncJourney();syncShop();
+  fillSizes();syncColors();syncLay();renderPins();poiHint();syncJourney();syncShop();
   if(map)map.jumpTo({center:S.center,zoom:S.zoom+S.detail,bearing:S.bearing,pitch:S.pitch});
   layout();restyle();readout();saveHash();
 }
@@ -1303,7 +1191,7 @@ let resetT=0;$("resetAll").onclick=()=>{const b=$("resetAll");
   try{localStorage.removeItem(OPEN_KEY)}catch(e){}location.hash="";location.reload()};
 
 // boot
-syncColors();syncLay();renderPins();outs();setMode(S.mode);setPlace(S.place,S.country,S.fiction);syncDisguise();syncRoute();syncJourney();syncShop();renderDesigns();
+syncColors();syncLay();renderPins();outs();setMode(S.mode);setPlace(S.place,S.country,S.fiction);syncDisguise();syncJourney();syncShop();renderDesigns();
 if(map)map.once("load",()=>{layout();syncCam()});
 document.fonts&&document.fonts.ready.then(()=>{layout()});
 </script>
