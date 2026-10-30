@@ -135,8 +135,9 @@ details[open]>summary::after{transform:rotate(45deg) translate(-2px,-2px)}
 .row2{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:10px;min-height:28px}
 .sw-row{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:28px}
 .sw-row label{font-size:14px}
-.layer{display:grid;grid-template-columns:44px 82px 1fr 40px;align-items:center;gap:8px;min-height:30px}
+.layer{display:grid;grid-template-columns:104px 1fr 46px 44px;align-items:center;gap:10px;min-height:30px}
 .layer label{font-size:14px}
+.layer:has(input[type=checkbox]:not(:checked)) :is(input[type=range],output,label){opacity:.4}
 .note{color:var(--muted);font-size:12.5px;line-height:1.45}
 .checks{display:flex;flex-wrap:wrap;gap:10px 18px}
 .checks label{display:flex;gap:9px;align-items:center;cursor:pointer;font-size:14px}
@@ -180,12 +181,6 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,122,255,.25)}
 .colors{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 10px}
 .colors label{display:grid;gap:5px;font-size:11px;color:var(--muted);text-align:center}
-.kofi{display:flex;align-items:center;gap:12px;margin:4px 0 8px;padding:12px 14px;border-radius:var(--r-card);background:var(--card);color:var(--ink);text-decoration:none;box-shadow:0 0 0 .5px var(--sep);transition:transform .15s}
-.kofi:hover{transform:translateY(-1px)}
-.kofi svg{flex:none;width:36px;height:36px;padding:7px;border-radius:10px;background:#29abe0}
-.kofi span{display:grid;gap:1px;min-width:0}
-.kofi b{font:600 14px var(--f-body)}
-.kofi small{font-size:12px;color:var(--muted)}
 .pins{display:grid;gap:6px}
 .pins:empty{display:none}
 .pin{display:grid;gap:8px;background:var(--bg);border-radius:12px;padding:10px}
@@ -202,10 +197,10 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .pin-row2 input[type=color]{height:30px}
 .pin-row2 input[type=text]{height:30px;background:#fff;box-shadow:0 0 0 .5px var(--sep)}
 /* preview */
-.stage-wrap{display:grid;grid-template-rows:1fr auto;min-width:0;min-height:0;background:radial-gradient(circle at 50% 40%,#fbfbfd 0%,#ececf1 70%)}
-.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;transition:background .3s}
+.stage-wrap{position:relative;display:grid;grid-template-rows:1fr;min-width:0;min-height:0;background:radial-gradient(circle at 50% 40%,#fbfbfd 0%,#ececf1 70%)}
+.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;transition:background .3s;padding:58px 24px 122px}
 .stage.mock{background:radial-gradient(120% 90% at 18% 8%,rgba(255,255,255,.55),rgba(255,255,255,0) 55%),linear-gradient(180deg,rgba(0,0,0,0) 70%,rgba(0,0,0,.05)),var(--wall)}
-.mount{position:relative;margin-top:30px}
+.mount{position:relative}
 .mount.framed{background:#fbfbf9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),0 30px 50px -18px rgba(0,0,0,.38),0 12px 20px -12px rgba(0,0,0,.3)}
 .frame{position:relative;overflow:hidden;touch-action:none;cursor:grab;border-radius:var(--fr,2px);background:#fff;
   box-shadow:0 0 0 1px rgba(0,0,0,.05),0 30px 60px -12px rgba(0,0,0,.26),0 18px 36px -18px rgba(0,0,0,.28)}
@@ -217,21 +212,35 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 #map{position:absolute;left:0;top:0}
 #ov{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
 .hint{position:absolute;top:14px;left:50%;transform:translateX(-50%);font:500 12px var(--f-body);color:#3a3a3c;background:rgba(255,255,255,.75);backdrop-filter:blur(16px) saturate(1.8);-webkit-backdrop-filter:blur(16px) saturate(1.8);padding:6px 13px;border-radius:20px;pointer-events:none;white-space:nowrap;box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.06);z-index:2}
-.loading{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font:600 12px var(--f-body);background:rgba(28,28,30,.82);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 13px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:2}
+.loading{position:absolute;bottom:150px;left:50%;transform:translateX(-50%);font:600 12px var(--f-body);background:rgba(28,28,30,.82);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 13px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:2}
 .loading::before{content:"";width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .fatal{max-width:420px;padding:20px;text-align:center;color:var(--muted)}
-.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.72);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-top:.5px solid var(--sep);
   padding:12px max(20px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) 20px}
 .readout{font:500 12.5px var(--f-body);color:var(--muted);font-variant-numeric:tabular-nums}
 .readout b{color:var(--ink);font-weight:600}
-.credit{font:11px var(--f-body);color:var(--muted)}
+.credit{position:absolute;right:16px;bottom:10px;font:10.5px var(--f-body);color:var(--muted);z-index:2}
 .credit a{color:inherit}
-.bar .btn{border-radius:20px;padding:9px 18px}
-.bar .btn.primary{box-shadow:0 4px 14px rgba(0,122,255,.3)}
-.toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(28,28,30,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;padding:10px 16px;border-radius:14px;font:500 13px var(--f-body);z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.dock{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:3;display:grid;justify-items:center;gap:8px;padding:10px 10px 10px;
+  border-radius:22px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8);
+  box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 12px 32px rgba(0,0,0,.12);max-width:calc(100% - 32px)}
+.dock .readout{padding:0 8px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.dock-btns{display:flex;gap:6px}
+.dbtn{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:14px;padding:10px 16px;background:rgba(118,118,128,.12);color:var(--ink);font:600 14px var(--f-body);cursor:pointer;white-space:nowrap;transition:transform .1s,background .15s}
+.dbtn svg{width:17px;height:17px;flex:none}
+.dbtn:hover{background:rgba(118,118,128,.2)}
+.dbtn:active{transform:scale(.96)}
+.dbtn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(0,122,255,.32)}
+.dbtn.primary:hover{background:#0a6fe6}
+.dbtn:disabled{opacity:.6;cursor:progress}
+.kofi-btn{position:absolute;top:12px;right:16px;z-index:4;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#29abe0;
+  box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 4px 14px rgba(41,171,224,.4);transition:transform .15s}
+.kofi-btn:hover{transform:scale(1.07)}
+.kofi-btn svg{width:24px;height:24px}
+.mnav{display:none}
+.toast{position:fixed;bottom:calc(150px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(28,28,30,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;padding:10px 16px;border-radius:14px;font:500 13px var(--f-body);z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 body{touch-action:manipulation}
-.tabbar,.grabber,.mnav-title,.ml,.mcredit{display:none}
+.tabbar,.grabber,.ml{display:none}
 .ready{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:20px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .ready-card{background:var(--card);border-radius:20px;padding:16px;display:grid;gap:12px;max-width:min(420px,100%);max-height:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .ready-card img{max-width:100%;max-height:58vh;display:block;margin:auto;border-radius:6px;box-shadow:0 0 0 .5px var(--sep),0 6px 18px rgba(0,0,0,.15);-webkit-touch-callout:default}
@@ -242,17 +251,19 @@ body{touch-action:manipulation}
   .app{display:block;height:100%}
   .stage-wrap{position:fixed;left:0;right:0;top:0;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + var(--sheetOpen,0px));
     grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px);transition:bottom .32s cubic-bezier(.32,.72,0,1)}
-  .bar{order:-1;border-top:0;border-bottom:.5px solid var(--sep);padding:8px max(12px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px));flex-wrap:nowrap;gap:8px}
-  .bar-info,.dl,.hint{display:none!important}
+  .mnav{display:flex;align-items:center;min-height:56px;padding:6px 64px 6px max(16px,env(safe-area-inset-left,0px));border-bottom:.5px solid var(--sep);background:rgba(249,249,251,.86);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
+  .kofi-btn{top:calc(env(safe-area-inset-top,0px) + 8px);right:max(14px,env(safe-area-inset-right,0px))}
+  .stage{padding:12px 12px 78px}
+  .dock{bottom:18px;padding:6px;border-radius:18px}
+  .dock .readout{display:none}
+  .dbtn{padding:9px 14px;font-size:14px;border-radius:13px}
+  .credit{right:10px;bottom:4px;font-size:9.5px}
+  .dl,.hint{display:none!important}
   .ml{display:inline}
   .mnav-title{display:grid;line-height:1.15;min-width:0}
   .mnav-title b{font:700 17px var(--f-display);letter-spacing:-.02em}
   .mnav-title span{font:500 11px var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .bar .btns{flex-wrap:nowrap;gap:6px}
-  .bar .btn{padding:7px 12px;font-size:14px}
-  .mount{margin-top:0}
-  .mcredit{display:block;position:absolute;right:10px;bottom:6px;font:10px var(--f-body);color:var(--muted);pointer-events:none}
-  .loading{bottom:22px}
+  .loading{bottom:84px}
   .rail{position:fixed;left:0;right:0;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px));height:var(--sheet);z-index:6;border-right:0;
     border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.12),0 -.5px 0 var(--sep);padding:6px max(14px,env(safe-area-inset-right,0px)) 28px max(14px,env(safe-area-inset-left,0px));
     transform:translateY(calc(100% + var(--tabh) + 40px));transition:transform .32s cubic-bezier(.32,.72,0,1);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -270,9 +281,9 @@ body{touch-action:manipulation}
   select,input[type=text],input[type=number],.search input[type=search]{font-size:16px}
   .row,.row2{grid-template-columns:96px 1fr auto}
   .row2{grid-template-columns:96px 1fr}
-  .layer{grid-template-columns:44px 74px 1fr 36px}
+  .layer{grid-template-columns:96px 1fr 40px 44px}
   .colors{grid-template-columns:repeat(4,1fr)}
-  .toast{bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 16px + var(--sheetOpen,0px))}
+  .toast{bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 84px + var(--sheetOpen,0px))}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -391,13 +402,11 @@ body{touch-action:manipulation}
       <p class="note" id="poiNote"></p>
     </div></details>
 
-    <a class="kofi" data-tab="place" href="https://ko-fi.com/guilhermelimait" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#fff" d="M4 6.5h13.2a3.8 3.8 0 0 1 0 7.6h-.9v.6A3.3 3.3 0 0 1 13 18H7.3A3.3 3.3 0 0 1 4 14.7zm12.3 2v3.6h.9a1.8 1.8 0 0 0 0-3.6z"/><path fill="#ff5e5b" d="M10.2 15.2s-3.1-1.9-3.1-3.9c0-1 .8-1.8 1.7-1.8.6 0 1.1.3 1.4.8.3-.5.8-.8 1.4-.8 1 0 1.7.8 1.7 1.8 0 2-3.1 3.9-3.1 3.9z"/></svg>
-      <span><b>Support MapMaking on Ko-fi</b><small>Free and open source. A coffee keeps it going.</small></span>
-    </a>
   </aside>
 
   <main class="stage-wrap">
+    <header class="mnav"><div class="mnav-title"><b>MapMaking</b><span id="mSize"></span></div></header>
+    <a class="kofi-btn" href="https://ko-fi.com/guilhermelimait" target="_blank" rel="noopener" title="Support MapMaking on Ko-fi" aria-label="Support MapMaking on Ko-fi"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#fff" d="M4 6.5h13.2a3.8 3.8 0 0 1 0 7.6h-.9v.6A3.3 3.3 0 0 1 13 18H7.3A3.3 3.3 0 0 1 4 14.7zm12.3 2v3.6h.9a1.8 1.8 0 0 0 0-3.6z"/><path fill="#ff5e5b" d="M10.2 15.2s-3.1-1.9-3.1-3.9c0-1 .8-1.8 1.7-1.8.6 0 1.1.3 1.4.8.3-.5.8-.8 1.4-.8 1 0 1.7.8 1.7 1.8 0 2-3.1 3.9-3.1 3.9z"/></svg></a>
     <div class="stage" id="stage">
       <div class="mount" id="mount">
         <div class="frame" id="frame">
@@ -407,13 +416,15 @@ body{touch-action:manipulation}
       </div>
       <div class="hint" id="hint">Drag to pan · scroll or pinch to zoom</div>
       <div class="loading" id="loading" hidden>Loading streets</div>
-      <div class="mcredit">© OpenStreetMap contributors</div>
-    </div>
-    <div class="bar">
-      <div class="mnav-title"><b>MapMaking</b><span id="mSize"></span></div>
-      <div class="bar-info" style="display:grid;gap:2px"><div class="readout" id="readout"></div>
-        <div class="credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · tiles <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> / OpenMapTiles</div></div>
-      <div class="btns"><button class="btn" id="copyLink" type="button"><span class="dl">Copy link</span><span class="ml">Link</span></button><button class="btn" id="mockBtn" type="button"><span class="dl">Mockup PNG</span><span class="ml">Mockup</span></button><button class="btn primary" id="exportBtn" type="button"><span class="dl">Export PNG</span><span class="ml">Export</span></button></div>
+      <div class="dock" id="dock">
+        <div class="readout" id="readout"></div>
+        <div class="dock-btns">
+          <button class="dbtn" id="copyLink" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span class="dl">Copy link</span><span class="ml">Link</span></button>
+          <button class="dbtn" id="mockBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"/><rect x="7.5" y="6.5" width="9" height="11"/></svg><span class="dl">Mockup PNG</span><span class="ml">Mockup</span></button>
+          <button class="dbtn primary" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg><span class="dl">Export PNG</span><span class="ml">Export</span></button>
+        </div>
+      </div>
+      <div class="credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a></div>
     </div>
   </main>
 </div>
@@ -665,7 +676,7 @@ if(typeof maplibregl==="undefined"){
 function layout(){
   [PW,PH]=outSize();G=geo(PW,PH);VK=vkOf(PW,PH);vw=G.map.w*VK;vh=G.map.h*VK;
   const mk=S.mode==="poster"&&S.mock.on,fr=mk&&FRAMES[S.mock.frame]?.032:0,mat=mk?MATS[S.mock.mat]:0,ch=fr+mat;
-  const mob=MOBILE.matches,r=$("stage").getBoundingClientRect(),aw=r.width-(mob?28:64),ah=r.height-(mob?36:100),ar=PH/PW;
+  const st=$("stage"),cs=getComputedStyle(st),aw=st.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),ah=st.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom),ar=PH/PW;
   let dw=Math.min(aw/(1+2*ch),ah/(ar+2*ch));dw=Math.max(60,Math.floor(dw));const dh=Math.round(dw*ar),ps=dw/PW;
   $("stage").classList.toggle("mock",mk);document.documentElement.style.setProperty("--wall",WALLS[S.mock.wall]||WALLS.warm);
   mount.classList.toggle("framed",mk);
@@ -696,9 +707,9 @@ function poiHint(){const n=$("poiNote"),rz=S.zoom+S.detail,hid=S.poi.cat!=="none
   n.style.color=hid?"var(--warn)":"";n.textContent=hid?`Hidden at this zoom. Zoom in to ${(14-S.detail).toFixed(0)}+ or raise street detail to show these points.`:"Stations show at any zoom. Other categories need zoom 14+ (or 12+ with street detail Max)."}
 function readout(){
   poiHint();const[w,h]=outSize(),mpp=40075016.686*Math.cos(S.center[1]*Math.PI/180)/(512*2**(S.zoom+S.detail)),km=vw*mpp/1000;
-  let phys="";if(S.mode==="poster"&&S.psize!=="custom"){const[a,b,u]=POSTER_SIZES[S.psize];phys=` · ${S.orient==="landscape"?b+" × "+a:a+" × "+b} ${u} @ ${S.dpi} dpi`}
+  let phys="";if(S.mode==="poster"&&S.psize!=="custom"){phys=` · ${S.psize}${S.orient==="landscape"?" landscape":""} · ${S.dpi} dpi`}
   $("mSize").textContent=(S.fiction?S.fiction.name:(S.text.title||S.place))+" · "+(S.mode==="poster"&&S.psize!=="custom"?S.psize+(S.orient==="landscape"?" landscape":""):w+"×"+h);
-  $("readout").innerHTML=`<b>${w} × ${h}</b> px${phys} · map <b>${km<10?km.toFixed(2):km.toFixed(1)}</b> km across`;
+  $("readout").innerHTML=`<b>${w} × ${h}</b> px${phys} · <b>${km<10?km.toFixed(2):km.toFixed(1)}</b> km across`;
 }
 let styleT=0;function restyle(){if(!map)return;cancelAnimationFrame(styleT);styleT=requestAnimationFrame(()=>{map.setStyle(buildStyle(),{diff:true});drawPreviewOverlay();saveHash()})}
 function redraw(){drawPreviewOverlay();saveHash()}
@@ -772,19 +783,20 @@ document.querySelectorAll("[data-c]").forEach(i=>i.addEventListener("input",()=>
 const lw=$("layers");
 for(const t of[...TIERS].reverse()){
   const r=document.createElement("div");r.className="layer";
-  r.innerHTML=`<input type="checkbox" id="on-${t.id}" aria-label="Show ${t.name}"><label for="w-${t.id}">${t.name}</label><input type="range" id="w-${t.id}" min="0.1" max="${t.id==="highway"?14:t.id==="avenue"?9:5}" step="0.05"><output></output>`;
+  r.innerHTML=`<label for="w-${t.id}">${t.name}</label><input type="range" id="w-${t.id}" min="0.1" max="${t.id==="highway"?14:t.id==="avenue"?9:5}" step="0.05"><output></output><input type="checkbox" id="on-${t.id}" aria-label="Show ${t.name}">`;
   lw.append(r);$("on-"+t.id).checked=S.on[t.id];$("on-"+t.id).onchange=e=>{S.on[t.id]=e.target.checked;restyle()};
   bindRange("w-"+t.id,()=>S.w[t.id],v=>S.w[t.id]=v,v=>v.toFixed(2),restyle);
 }
-const extra=document.createElement("div");extra.className="body";
-extra.innerHTML=`<div class="checks"><label><input type="checkbox" id="lyWater"> Water</label><label><input type="checkbox" id="lyParks"> Parks</label><label><input type="checkbox" id="lyBuild"> Buildings</label><label><input type="checkbox" id="lyTun"> Tunnels</label></div>
-<div class="row"><label for="weight">All lines ×</label><input type="range" id="weight" min="0.25" max="4" step="0.05"><output></output></div>
-<div class="row"><label for="glow">Glow</label><input type="range" id="glow" min="0" max="10" step="0.5"><output></output></div>
-<div class="row"><label for="zscale">Grow with zoom</label><input type="range" id="zscale" min="0" max="1" step="0.05"><output></output></div>`;
-lw.append(extra);
+lw.insertAdjacentHTML("beforeend",`<div class="layer"><label for="weight">Line weight</label><input type="range" id="weight" min="0.25" max="4" step="0.05"><output></output><span></span></div>
+<div class="layer"><label for="glow">Glow</label><input type="range" id="glow" min="0" max="10" step="0.5"><output></output><span></span></div>
+<div class="layer"><label for="zscale">Zoom scaling</label><input type="range" id="zscale" min="0" max="1" step="0.05"><output></output><span></span></div>
+<div class="sw-row"><label for="lyWater">Water</label><input type="checkbox" id="lyWater"></div>
+<div class="sw-row"><label for="lyParks">Parks</label><input type="checkbox" id="lyParks"></div>
+<div class="sw-row"><label for="lyBuild">Buildings</label><input type="checkbox" id="lyBuild"></div>
+<div class="sw-row"><label for="lyTun">Tunnels (faded)</label><input type="checkbox" id="lyTun"></div>`);
 [["lyWater","water"],["lyParks","parks"],["lyBuild","buildings"],["lyTun","tunnels"]].forEach(([id,k])=>{$(id).checked=S[k];$(id).onchange=e=>{S[k]=e.target.checked;restyle()}});
 bindRange("weight",()=>S.weight,v=>S.weight=v,v=>v.toFixed(2)+"×",restyle);
-bindRange("glow",()=>S.glow,v=>S.glow=v,v=>v,restyle);
+bindRange("glow",()=>S.glow,v=>S.glow=v,v=>v.toFixed(1),restyle);
 bindRange("zscale",()=>S.zscale,v=>S.zscale=v,v=>Math.round(v*100)+"%",restyle);
 
 // points + pins
@@ -909,7 +921,7 @@ $("readyShare").onclick=async()=>{if(!readyFile)return;
   const a=document.createElement("a");a.href=$("readyImg").src;a.download=readyFile.name;document.body.append(a);a.click();a.remove()};
 $("readyClose").onclick=()=>{$("ready").hidden=true};
 $("ready").addEventListener("click",e=>{if(e.target.id==="ready")$("ready").hidden=true});
-async function withBtn(btn,label,fn){if(!map)return;const t=btn.innerHTML;btn.disabled=true;btn.textContent=label;try{await fn()}catch(err){console.error(err);toast("Export failed: "+(err.message||err))}finally{btn.disabled=false;btn.innerHTML=t}}
+async function withBtn(btn,label,fn){if(!map)return;const t=btn.innerHTML;btn.disabled=true;btn.querySelectorAll("span").forEach(x=>x.textContent=label);try{await fn()}catch(err){console.error(err);toast("Export failed: "+(err.message||err))}finally{btn.disabled=false;btn.innerHTML=t}}
 $("exportBtn").onclick=()=>withBtn($("exportBtn"),"Loading…",async()=>{
   const[W0,H0]=outSize();let W=W0,H=H0,capped=false;
   if(W*H>MAXPX){const k=Math.sqrt(MAXPX/(W*H));W=Math.floor(W0*k);H=Math.floor(H0*k);capped=true}
