@@ -237,7 +237,9 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .icons button{border:0;background:#fff;border-radius:8px;aspect-ratio:1;display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 0 0 .5px var(--sep)}
 .icons button svg{width:62%;height:62%}
 .icons button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--accent);background:var(--accent-soft)}
-.pin-row2{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center}
+.pin-row2{display:grid;grid-template-columns:1fr;gap:8px;align-items:center}
+.pin-colors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pin-colors label{display:grid;gap:3px;font-size:11px;color:var(--muted);text-align:center}
 .pin-row2 input[type=color]{height:30px}
 .pin-row2 input[type=text]{height:30px;background:#fff;box-shadow:0 0 0 .5px var(--sep)}
 /* preview */
@@ -714,13 +716,13 @@ function drawIcon(ctx,x,y,pin,u){
   ctx.save();
   if(I.halo){ctx.beginPath();ctx.arc(x,y,size*.62,0,7);ctx.fillStyle=hexA(col,.18);ctx.fill()}
   ctx.translate(x-ax*k,y-ay*k);ctx.scale(k,k);
-  ctx.lineJoin="round";ctx.lineWidth=2.6;ctx.strokeStyle=hexA(bgc,.9);ctx.stroke(ICON_PATHS[pin.icon]||ICON_PATHS.pin);
+  ctx.lineJoin="round";ctx.lineWidth=2.6;ctx.strokeStyle=pin.outline||hexA(bgc,.9);ctx.stroke(ICON_PATHS[pin.icon]||ICON_PATHS.pin);
   ctx.shadowColor="rgba(0,0,0,.18)";ctx.shadowBlur=3*k*u;ctx.fillStyle=col;ctx.fill(ICON_PATHS[pin.icon]||ICON_PATHS.pin,"evenodd");
   ctx.restore();
   if(pin.label){const F=FONTS[S.text.font]||FONTS.montserrat,fs=Math.max(8,size*.42);ctx.save();
     ctx.font=`${F.tw} ${fs}px ${F.subFam||F.fam}`;if("letterSpacing"in ctx)ctx.letterSpacing=(fs*.04)+"px";ctx.textAlign="left";ctx.textBaseline="middle";
     const lx=x+(I.ax!==undefined?(24-ax)*k:size*.55)+fs*.35,ly=I.ay!==undefined&&I.ay>20?y-size*.55:y;
-    ctx.lineJoin="round";ctx.lineWidth=fs*.32;ctx.strokeStyle=hexA(bgc,.92);ctx.strokeText(pin.label,lx,ly);ctx.fillStyle=c.text===c.bg?col:(S.mode==="poster"?c.text:col);ctx.fillText(pin.label,lx,ly);ctx.restore()}
+    ctx.lineJoin="round";ctx.lineWidth=fs*.32;ctx.strokeStyle=pin.outline||hexA(bgc,.92);ctx.strokeText(pin.label,lx,ly);ctx.fillStyle=pin.textColor||(c.text===c.bg?col:(S.mode==="poster"?c.text:col));ctx.fillText(pin.label,lx,ly);ctx.restore()}
 }
 function drawJourney(ctx,proj,u){
   const J=S.journey;if(!J.on||S.pins.length<2)return;const pts=S.pins.map(p=>proj(p.ll)),w=Math.max(1,J.width*u*1.6);
@@ -901,15 +903,19 @@ $("poiCat").value=S.poi.cat;$("poiCat").onchange=e=>{S.poi.cat=e.target.value;po
 $("poiStyle").value=S.poi.style;$("poiStyle").onchange=e=>{S.poi.style=e.target.value;restyle()};
 bindRange("poiSize",()=>S.poi.size,v=>S.poi.size=v,v=>v.toFixed(1),restyle);
 const iconSvg=(k,col)=>`<svg viewBox="0 0 24 24"><path d="${ICONS[k].d}" fill="${col}" fill-rule="evenodd"/></svg>`;
-function addPin(ll){S.pins.push({ll,icon:S.lastIcon||"pin",color:"",label:""});renderPins();redraw()}
+function addPin(ll){S.pins.push({ll,icon:S.lastIcon||"pin",color:"",label:"",textColor:"",outline:""});renderPins();redraw()}
 function renderPins(){const L=$("pinList");L.innerHTML="";$("pinEmpty").hidden=S.pins.length>0;
   S.pins.forEach((p,i)=>{const d=document.createElement("div");d.className="pin";const col=p.color||S.colors.pin;
     d.innerHTML=`<div class="pin-top"><b>${esc(p.label||ICONS[p.icon].n)}<small>${p.ll[1].toFixed(4)}, ${p.ll[0].toFixed(4)}</small></b>
       <button type="button" class="ib" data-a="center">Center map</button><button type="button" class="ib del" data-a="del" aria-label="Remove icon">Remove</button></div>
       <div class="icons">${Object.keys(ICONS).map(k=>`<button type="button" data-i="${k}" aria-label="${ICONS[k].n}" title="${ICONS[k].n}" aria-pressed="${k===p.icon}">${iconSvg(k,col)}</button>`).join("")}</div>
-      <div class="pin-row2"><input type="color" value="${col}" aria-label="Icon color"><input type="text" placeholder="Label (optional), e.g. Home" value="${esc(p.label||"")}" aria-label="Icon label"></div>`;
+      <div class="pin-row2"><div class="pin-colors">
+        <label>Icon<input type="color" data-k="color" value="${col}"></label>
+        <label>Text<input type="color" data-k="textColor" value="${p.textColor||(S.colors.text===S.colors.bg?col:S.colors.text)}"></label>
+        <label>Outline<input type="color" data-k="outline" value="${p.outline||S.colors.bg}"></label></div>
+        <input type="text" placeholder="Label (optional), e.g. Home" value="${esc(p.label||"")}" aria-label="Icon label"></div>`;
     d.querySelectorAll(".icons button").forEach(b=>b.onclick=()=>{p.icon=b.dataset.i;S.lastIcon=p.icon;renderPins();redraw()});
-    d.querySelector("input[type=color]").oninput=e=>{p.color=e.target.value;d.querySelectorAll(".icons path").forEach(x=>x.setAttribute("fill",p.color));redraw()};
+    d.querySelectorAll(".pin-colors input").forEach(inp=>inp.oninput=e=>{p[inp.dataset.k]=e.target.value;if(inp.dataset.k==="color")d.querySelectorAll(".icons path").forEach(x=>x.setAttribute("fill",p.color));redraw()});
     d.querySelector("input[type=text]").oninput=e=>{p.label=e.target.value;d.querySelector(".pin-top b").firstChild.nodeValue=p.label||ICONS[p.icon].n;redraw()};
     d.querySelector('[data-a="center"]').onclick=()=>{if(map){map.jumpTo({center:p.ll});syncCam()}};
     d.querySelector('[data-a="del"]').onclick=()=>{S.pins.splice(i,1);renderPins();redraw()};

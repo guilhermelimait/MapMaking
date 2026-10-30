@@ -25,7 +25,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 - Rotation, a 0–60° tilt and three street-detail levels.
 
 **Icons and points of interest**
-- Add icons at the map center or by tapping the map: map pin, heart, star, home, flag, plane, target or dot. Each icon has its own color and an optional label.
+- Add icons at the map center or by tapping the map: map pin, heart, star, home, flag, plane, target or dot. Each icon has its own icon, text and outline colors and an optional label.
 - Optional points from OpenStreetMap: stations, cafés and restaurants, nightlife, culture, shops.
 
 **Journeys**
