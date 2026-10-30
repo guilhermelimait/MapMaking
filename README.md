@@ -4,6 +4,8 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 **Live app:** https://guilhermelimait.github.io/MapMaking/
 
+[![Support MapMaking on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20MapMaking-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/guilhermelimait)
+
 ![MapMaking on desktop](screenshots/desktop.png)
 
 ## Features
@@ -99,6 +101,10 @@ The first build downloads MapLibre GL JS 4.7.1 with `npm` into `vendor/` (ignore
 - Vector tiles by [OpenFreeMap](https://openfreemap.org), using the [OpenMapTiles](https://openmaptiles.org) schema.
 - [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) 4.7.1, BSD 3-Clause License, bundled in `index.html`.
 - Typefaces from [Google Fonts](https://fonts.google.com), under the SIL Open Font License.
+
+## Support
+
+MapMaking is free and open source. If it helped you make something you like, you can buy me a coffee on [Ko-fi](https://ko-fi.com/guilhermelimait).
 
 ## License
 

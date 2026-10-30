@@ -180,6 +180,12 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,122,255,.25)}
 .colors{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 10px}
 .colors label{display:grid;gap:5px;font-size:11px;color:var(--muted);text-align:center}
+.kofi{display:flex;align-items:center;gap:12px;margin:4px 0 8px;padding:12px 14px;border-radius:var(--r-card);background:var(--card);color:var(--ink);text-decoration:none;box-shadow:0 0 0 .5px var(--sep);transition:transform .15s}
+.kofi:hover{transform:translateY(-1px)}
+.kofi svg{flex:none;width:36px;height:36px;padding:7px;border-radius:10px;background:#29abe0}
+.kofi span{display:grid;gap:1px;min-width:0}
+.kofi b{font:600 14px var(--f-body)}
+.kofi small{font-size:12px;color:var(--muted)}
 .pins{display:grid;gap:6px}
 .pins:empty{display:none}
 .pin{display:grid;gap:8px;background:var(--bg);border-radius:12px;padding:10px}
@@ -385,6 +391,10 @@ body{touch-action:manipulation}
       <p class="note" id="poiNote"></p>
     </div></details>
 
+    <a class="kofi" data-tab="place" href="https://ko-fi.com/guilhermelimait" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#fff" d="M4 6.5h13.2a3.8 3.8 0 0 1 0 7.6h-.9v.6A3.3 3.3 0 0 1 13 18H7.3A3.3 3.3 0 0 1 4 14.7zm12.3 2v3.6h.9a1.8 1.8 0 0 0 0-3.6z"/><path fill="#ff5e5b" d="M10.2 15.2s-3.1-1.9-3.1-3.9c0-1 .8-1.8 1.7-1.8.6 0 1.1.3 1.4.8.3-.5.8-.8 1.4-.8 1 0 1.7.8 1.7 1.8 0 2-3.1 3.9-3.1 3.9z"/></svg>
+      <span><b>Support MapMaking on Ko-fi</b><small>Free and open source. A coffee keeps it going.</small></span>
+    </a>
   </aside>
 
   <main class="stage-wrap">
