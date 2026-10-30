@@ -102,4 +102,4 @@ The first build downloads MapLibre GL JS 4.7.1 with `npm` into `vendor/` (ignore
 
 ## License
 
-No license has been chosen yet.
+MapMaking is released under the [MIT License](LICENSE). The bundled MapLibre GL JS keeps its own BSD 3-Clause License, and map data stays under the Open Database License (see Credits).
