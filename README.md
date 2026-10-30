@@ -39,6 +39,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 **Game cities**
 - 16 real places that famous games are set in or modelled on, each with a matching palette: Los Angeles (GTA V), New York (GTA IV), Miami (Vice City), Florence (Assassin's Creed II), Paris (Assassin's Creed Unity), Chicago, San Francisco and London (Watch Dogs), Kabukichō (Yakuza), Shibuya (Persona 5), New Orleans (Red Dead Redemption 2), Washington D.C., Boston and Las Vegas (Fallout), Pittsburgh (The Last of Us) and Guanajuato (Forza Horizon 5).
+- The poster shows the game name as the title with the real city and country underneath. Surprise me sometimes picks one of these too.
 - The maps are drawn from OpenStreetMap; no game artwork is included.
 
 **More**

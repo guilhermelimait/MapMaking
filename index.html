@@ -941,6 +941,9 @@ $("surprise").onclick=()=>{if(MOBILE.matches)setTab(null);
   S.text.font=pick(Object.keys(FONTS));S.text.title="";S.text.sub="";S.text.tag="";
   S.pitch=Math.random()<.35?Math.round(25+Math.random()*30):0;
   S.bearing=Math.random()<.35?Math.round((Math.random()-.5)*60):0;
+  if(Math.random()<.3){const i=Math.floor(Math.random()*GAME_CITIES.length);applyGameCity(i,Math.random()<.5);
+    const F=FONTS[S.text.font];document.fonts&&document.fonts.load(`${F.tw} 40px ${F.fam}`).then(drawPreviewOverlay).catch(()=>{});
+    toast(`${GAME_CITIES[i][0]} · ${GAME_CITIES[i][1]} · ${S.palette}`);return}
   goTo(c[1]+(Math.random()-.5)*.02,c[2]+(Math.random()-.5)*.015,11.8+Math.random()*1.4,c[0],c[3]);
   syncAll();const F=FONTS[S.text.font];document.fonts&&document.fonts.load(`${F.tw} 40px ${F.fam}`).then(drawPreviewOverlay).catch(()=>{});
   toast(`${c[0]} · ${pal}${S.mode==="poster"?" · "+S.layout:""}${S.pitch?" · tilted":""}`)};
@@ -1050,13 +1053,15 @@ const GAME_CITIES=[
   ["Fallout: New Vegas","Las Vegas","United States",-115.1728,36.1147,12.6,"Fallout","New Vegas"],
   ["The Last of Us","Pittsburgh","United States",-79.9959,40.4406,13.0,"Moss","Pittsburgh"],
   ["Forza Horizon 5","Guanajuato","Mexico",-101.2574,21.019,14.2,"Terracotta","Guanajuato"]];
-GAME_CITIES.forEach(([game,city,country,lon,lat,z,pal,inGame])=>{
+// game name as the poster title, the real city and country underneath
+function applyGameCity(i,keepPalette){const[game,city,country,lon,lat,z,pal]=GAME_CITIES[i];
+  if(!keepPalette){S.palette=pal;S.colors={...PALETTES[pal]}}
+  S.text.title=game;S.text.sub=`${city}, ${country}`;S.text.tag="";
+  goTo(lon,lat,z,city,country);syncAll()}
+GAME_CITIES.forEach((gc)=>{const[game,city,country,lon,lat,z,pal,inGame]=gc;
   const b=document.createElement("button");b.type="button";b.className="gc";b.title=`${city}, the real setting of ${inGame} in ${game}`;
   const P=PALETTES[pal];b.innerHTML=`<b>${esc(game)}</b><small>${esc(city)}</small><i style="background:linear-gradient(90deg,${P.bg} 0 34%,${P.mid} 34% 67%,${P.major} 67%)"></i>`;
-  b.onclick=()=>{if(MOBILE.matches)setTab(null);
-    S.palette=pal;S.colors={...PALETTES[pal]};S.bearing=0;S.pitch=0;S.mirror=false;
-    S.text.title="";S.text.sub="";S.text.tag=`Real-world setting of ${game}`;
-    goTo(lon,lat,z,city,country);syncAll();toast(`${city}: the city behind ${inGame}`)};
+  b.onclick=()=>{if(MOBILE.matches)setTab(null);S.bearing=0;S.pitch=0;S.mirror=false;applyGameCity(GAME_CITIES.indexOf(gc));toast(`${game} · ${city}`)};
   $("gcList").append(b)});
 
 // ---------- per-section reset ----------
