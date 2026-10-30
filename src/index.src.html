@@ -47,7 +47,8 @@ body{background:var(--bg);color:var(--ink);font:14px/1.4 var(--f-body);-webkit-f
 .results button:hover,.results button:focus-visible{background:var(--accent-soft)}
 .results small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
-.rail>.btns .btn{flex:1}
+.placeBox>.btns{display:grid;grid-template-columns:1fr 1fr}
+.placeBox>.btns .btn{text-align:center}
 .place{font:600 13px var(--f-body);color:var(--muted);margin:12px 4px 14px;letter-spacing:0}
 .place b{color:var(--ink);font-weight:600}
 .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--fill);border-radius:10px;padding:2px;gap:2px}
@@ -247,12 +248,12 @@ body{touch-action:manipulation}
     </div>
     </div>
 
-    <details data-tab="layout" open data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg>Layout</span></summary><div class="body">
+    <details data-tab="layout" data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg>Layout</span></summary><div class="body">
       <div class="layouts" id="layouts"></div>
       <div class="row"><label for="margin">Margin</label><input type="range" id="margin" min="0" max="0.16" step="0.005"><output></output></div>
     </div></details>
 
-    <details data-tab="text" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Text</span></summary><div class="body">
+    <details data-tab="text"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Text</span></summary><div class="body">
       <div class="row2" data-mode="wall"><label class="lbl" for="capPos">Placement</label>
         <select id="capPos"><option value="off">No text</option><option value="bottom">Bottom</option><option value="top">Top</option><option value="center">Center</option></select></div>
       <div class="row2"><label class="lbl" for="tTitle">Title</label><input type="text" id="tTitle" placeholder="City name"></div>
@@ -276,14 +277,14 @@ body{touch-action:manipulation}
       <div class="sw-row"><label for="tCredit">OpenStreetMap credit on export</label><input type="checkbox" id="tCredit"></div>
     </div></details>
 
-    <details data-tab="icons" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
+    <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
       <div class="btns"><button class="btn primary" id="pinCenter" type="button">Add at center</button><button class="btn" id="pinMode" type="button">Click map to add</button></div>
       <div class="row"><label for="pinSize">Icon size</label><input type="range" id="pinSize" min="2" max="30" step="0.5"><output></output></div>
       <div class="pins" id="pinList"></div>
       <p class="note" id="pinEmpty">Mark home, a first date or a favourite café with an icon. Each icon can have its own color and label.</p>
     </div></details>
 
-    <details data-tab="style" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
+    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
       <div class="swatches" id="swatches"></div>
       <div class="colors">
         <label>Land<input type="color" data-c="bg"></label>
@@ -301,9 +302,9 @@ body{touch-action:manipulation}
       </div>
     </div></details>
 
-    <details data-tab="style" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>Layers &amp; line weight</span></summary><div class="body" id="layers"></div></details>
+    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>Layers &amp; line weight</span></summary><div class="body" id="layers"></div></details>
 
-    <details data-tab="camera" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
+    <details data-tab="camera"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
       <div class="row"><label for="zoom">Zoom</label><input type="range" id="zoom" min="9" max="17" step="0.01"><output></output></div>
       <div class="row"><label for="bearing">Rotation</label><input type="range" id="bearing" min="-180" max="180" step="1"><output></output></div>
       <div class="row"><label for="pitch">Tilt</label><input type="range" id="pitch" min="0" max="60" step="1"><output></output></div>
@@ -312,7 +313,7 @@ body{touch-action:manipulation}
       <p class="note">Tilt 0 is a straight top-down view. Higher street detail draws more small streets at city-wide zoom.</p>
     </div></details>
 
-    <details data-tab="layout" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></svg>Size</span></summary><div class="body">
+    <details data-tab="layout"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></svg>Size</span></summary><div class="body">
       <div class="row2"><label class="lbl" for="size">Format</label><select id="size"></select></div>
       <div class="row2" data-mode="poster"><span class="lbl">Orientation</span><div class="seg" id="orientSeg"><button type="button" data-v="portrait">Portrait</button><button type="button" data-v="landscape">Landscape</button></div></div>
       <div class="row2" data-mode="poster"><span class="lbl">Print quality</span><div class="seg" id="dpiSeg"><button type="button" data-v="150">150 dpi</button><button type="button" data-v="300">300 dpi</button></div></div>
@@ -322,7 +323,7 @@ body{touch-action:manipulation}
       <div class="row"><label for="grain">Paper grain</label><input type="range" id="grain" min="0" max="1" step="0.02"><output></output></div>
     </div></details>
 
-    <details data-tab="layout" open data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><rect x="7.5" y="6.5" width="9" height="11"/></svg>Frame &amp; wall preview</span></summary><div class="body">
+    <details data-tab="layout" data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><rect x="7.5" y="6.5" width="9" height="11"/></svg>Frame &amp; wall preview</span></summary><div class="body">
       <div class="sw-row"><label for="mockOn">Show framed on a wall</label><input type="checkbox" id="mockOn"></div>
       <div class="row2"><label class="lbl" for="mockFrame">Frame</label>
         <select id="mockFrame"><option value="black">Black</option><option value="oak">Oak</option><option value="walnut">Walnut</option><option value="white">White</option><option value="none">No frame</option></select></div>
@@ -789,7 +790,7 @@ $("mockOn").checked=S.mock.on;$("mockOn").onchange=e=>{S.mock.on=e.target.checke
 function setMode(m){S.mode=m;$("modePoster").setAttribute("aria-pressed",String(m==="poster"));$("modeWall").setAttribute("aria-pressed",String(m==="wall"));
   document.querySelectorAll("[data-mode]").forEach(el=>el.hidden=el.dataset.mode!==m);$("mockBtn").hidden=m!=="poster";fillSizes();layout();restyle()}
 $("modePoster").onclick=()=>{if(S.mode==="poster")return;setMode("poster")};
-$("modeWall").onclick=()=>{if(S.mode==="wall")return;if(S.palette==="Ink"||S.palette==="Pencil"){S.palette="Noir";S.colors={...PALETTES.Noir};syncColors()}setMode("wall")};
+$("modeWall").onclick=()=>{if(S.mode==="wall")return;setMode("wall")};
 
 // ---------- search ----------
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
