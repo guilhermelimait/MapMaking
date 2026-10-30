@@ -127,7 +127,12 @@ summary:hover{color:var(--ink)}
 .linkbtn{border:0;background:none;color:var(--muted);font:500 13px var(--f-body);cursor:pointer;padding:8px 12px;border-radius:8px}
 .linkbtn:hover{color:var(--ink);background:var(--fill)}
 .linkbtn.armed{color:#fff;background:var(--warn)}
-summary .st{display:flex;align-items:center;gap:8px}
+summary .st{display:flex;align-items:center;gap:8px;flex:1}
+.sreset{pointer-events:auto;border:0;background:none;color:var(--muted);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;cursor:pointer;margin-right:6px;opacity:0;transition:opacity .15s}
+.sreset svg{width:15px;height:15px}
+.sreset:hover{background:var(--fill);color:var(--ink)}
+details[open] .sreset,summary:hover .sreset,.sreset:focus-visible{opacity:1}
+.toast button{margin-left:12px;border:0;background:rgba(255,255,255,.18);color:#fff;font:600 13px var(--f-body);padding:4px 10px;border-radius:8px;cursor:pointer}
 summary .si{width:16px;height:16px;flex:none;stroke-width:1.9}
 summary::after{content:"";width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;margin-right:4px}
 details[open]>summary::after{transform:rotate(45deg) translate(-2px,-2px)}
@@ -182,6 +187,8 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .lay[aria-pressed="true"] svg{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,0,0,.18)}
 .lay[aria-pressed="true"]{color:var(--accent);font-weight:600}
 .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.swgroup{grid-column:1/-1;font:600 11.5px var(--f-body);color:var(--muted);letter-spacing:.02em;margin:6px 2px -2px}
+.swgroup:first-child{margin-top:0}
 .sw{border:0;border-radius:12px;padding:0;aspect-ratio:1.55;max-width:100%;cursor:pointer;position:relative;overflow:hidden;background:none;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
 .sw:hover{transform:translateY(-1px)}
 .sw canvas{width:100%;height:100%;display:block}
@@ -466,6 +473,7 @@ const PALETTES={
   Harbor:   {bg:"#ebe4d4",water:"#1f2e48",park:"#dcd5bd",building:"#e1d9c6",minor:"#cdc2aa",mid:"#7c8090",major:"#1f2e48",rail:"#b7ac94",poi:"#1f2e48",pin:"#c2412d",paper:"#ebe4d4",text:"#1f2e48"},
   Mist:     {bg:"#f5f3f0",water:"#c9cdd2",park:"#ebe9e4",building:"#e9e6e1",minor:"#d6d2cc",mid:"#8e8a84",major:"#262626",rail:"#cfcbc5",poi:"#262626",pin:"#c2412d",paper:"#f8f7f5",text:"#1b1b1b"},
   Terracotta:{bg:"#f3e6dc",water:"#c9d6d6",park:"#ead9cc",building:"#ecdccf",minor:"#dcbfaa",mid:"#b9785a",major:"#8a3f24",rail:"#d6b8a3",poi:"#8a3f24",pin:"#2f5d7c",paper:"#faf5f0",text:"#5a2a18"},
+  Sepia:    {bg:"#ece6da",water:"#c3d3d8",park:"#d9ddc4",building:"#e2dacb",minor:"#c2b6a0",mid:"#8c7f69",major:"#2f2a23",rail:"#a89c86",poi:"#c0432e",pin:"#1f6fd1",paper:"#ece6da",text:"#2f2a23"},
   Noir:     {bg:"#000000",water:"#000000",park:"#070707",building:"#0e0e0e",minor:"#5e5e5e",mid:"#b8b8b8",major:"#ffffff",rail:"#3a3a3a",poi:"#ff8a1f",pin:"#2f8cff",paper:"#000000",text:"#ffffff"},
   Slate:    {bg:"#252d38",water:"#1b222b",park:"#29323d",building:"#2c3540",minor:"#151a22",mid:"#10141a",major:"#0a0d12",rail:"#1a2029",poi:"#e9eef5",pin:"#5cb8ff",paper:"#252d38",text:"#e9eef5"},
   Tron:     {bg:"#0f1729",water:"#090e1b",park:"#111c31",building:"#131f36",minor:"#175f7c",mid:"#14a6c8",major:"#22cdee",rail:"#123e55",poi:"#ffd166",pin:"#ff5d8f",paper:"#0f1729",text:"#22cdee"},
@@ -473,8 +481,22 @@ const PALETTES={
   Ember:    {bg:"#170e1c",water:"#0f0913",park:"#1d1123",building:"#201427",minor:"#47264c",mid:"#a83f74",major:"#ff8a5c",rail:"#3a1e3e",poi:"#ffd23f",pin:"#5ce1e6",paper:"#170e1c",text:"#ff8a5c"},
   Moss:     {bg:"#0f1d18",water:"#0a1511",park:"#142821",building:"#16291f",minor:"#22493c",mid:"#45957b",major:"#a5f6d0",rail:"#1b3a30",poi:"#ffb86b",pin:"#ff6b8b",paper:"#0f1d18",text:"#a5f6d0"},
   Neon:     {bg:"#0b0418",water:"#060210",park:"#10061f",building:"#13072a",minor:"#3b1868",mid:"#b13cff",major:"#ff4fd8",rail:"#2a1150",poi:"#3cf0ff",pin:"#fff04a",paper:"#0b0418",text:"#ff4fd8"},
-  Sepia:    {bg:"#ece6da",water:"#c3d3d8",park:"#d9ddc4",building:"#e2dacb",minor:"#c2b6a0",mid:"#8c7f69",major:"#2f2a23",rail:"#a89c86",poi:"#c0432e",pin:"#1f6fd1",paper:"#ece6da",text:"#2f2a23"}
+  Fallout:  {bg:"#07170c",water:"#031009",park:"#0b2213",building:"#0d2615",minor:"#1f6b38",mid:"#33b05a",major:"#5dff8f",rail:"#17502b",poi:"#c6ffd8",pin:"#ffcf3a",paper:"#07170c",text:"#5dff8f"},
+  "GTA V":  {bg:"#3a4044",water:"#2a4a63",park:"#4a5a46",building:"#444b50",minor:"#6b7277",mid:"#b8bcbf",major:"#f4f4f4",rail:"#575e63",poi:"#f0c419",pin:"#e84a5f",paper:"#3a4044",text:"#ffffff"},
+  Zelda:    {bg:"#0f2a33",water:"#0a1d24",park:"#12343d",building:"#133a44",minor:"#1f6672",mid:"#3fb5c4",major:"#8ef0ff",rail:"#1a5560",poi:"#ff9b2f",pin:"#ff9b2f",paper:"#0f2a33",text:"#8ef0ff"},
+  Minecraft:{bg:"#c9b58d",water:"#4c69c2",park:"#8fa45a",building:"#b9a37a",minor:"#a88d63",mid:"#7a5c3a",major:"#4a3423",rail:"#8c7656",poi:"#b02e26",pin:"#b02e26",paper:"#c9b58d",text:"#3b2a1c"},
+  "Pokémon":{bg:"#9bbc0f",water:"#306230",park:"#8bac0f",building:"#8bac0f",minor:"#6a8f22",mid:"#306230",major:"#0f380f",rail:"#306230",poi:"#0f380f",pin:"#0f380f",paper:"#9bbc0f",text:"#0f380f"},
+  Cyberpunk:{bg:"#0b0b14",water:"#050510",park:"#11111d",building:"#141422",minor:"#4a4520",mid:"#02d7f2",major:"#fcee0a",rail:"#3a1020",poi:"#ff003c",pin:"#ff003c",paper:"#0b0b14",text:"#fcee0a"},
+  "Hollow Knight":{bg:"#1b2230",water:"#10151f",park:"#212a3a",building:"#232c3c",minor:"#3b4659",mid:"#8a96ab",major:"#e8ecf2",rail:"#2f394b",poi:"#f5f0e1",pin:"#6ec6ff",paper:"#1b2230",text:"#e8ecf2"},
+  "Pac-Man":{bg:"#000000",water:"#000000",park:"#050514",building:"#08081c",minor:"#1c1c8c",mid:"#2121de",major:"#4a4aff",rail:"#14145a",poi:"#ffb8ae",pin:"#ffff00",paper:"#000000",text:"#ffff00"},
+  "Super Mario":{bg:"#5c94fc",water:"#3058e0",park:"#58b848",building:"#6e9efc",minor:"#a9c6fd",mid:"#e09050",major:"#c84c0c",rail:"#94b6fc",poi:"#fcd800",pin:"#d82800",paper:"#5c94fc",text:"#fcfcfc"},
+  "Red Dead":{bg:"#d8c6a1",water:"#8fa59a",park:"#c9b98d",building:"#cdbb94",minor:"#b49c74",mid:"#6e5236",major:"#3a2716",rail:"#9c845e",poi:"#8b1e1e",pin:"#8b1e1e",paper:"#d8c6a1",text:"#3a2716"},
+  Halo:     {bg:"#0e1a20",water:"#081115",park:"#12222a",building:"#14262e",minor:"#24434f",mid:"#5f9db3",major:"#bfe6f5",rail:"#1c3640",poi:"#7bc142",pin:"#7bc142",paper:"#0e1a20",text:"#bfe6f5"},
+  Portal:   {bg:"#f4f4f2",water:"#d9e4ea",park:"#e9ece6",building:"#ebebea",minor:"#cfd3d6",mid:"#8b9399",major:"#2b3034",rail:"#c2c7cb",poi:"#ff8a00",pin:"#2aa9e0",paper:"#ffffff",text:"#2b3034"}
 };
+const PALETTE_GROUPS=[["Light",["Ink","Pencil","Sage","Fjord","Harbor","Mist","Terracotta","Sepia"]],["Dark",["Noir","Slate","Tron","Blueprint","Ember","Moss","Neon"]],
+  ["Inspired by games",["Fallout","GTA V","Zelda","Minecraft","Pokémon","Cyberpunk","Hollow Knight","Pac-Man","Super Mario","Red Dead","Halo","Portal"]]];
+const GAME_PALETTES=new Set(PALETTE_GROUPS[2][1]);
 const TIERS=[
   {id:"path",name:"Paths",cls:["path","track"],col:"minor",def:0.4,on:false},
   {id:"service",name:"Service",cls:["service"],col:"minor",def:0.5,on:true},
@@ -672,7 +694,7 @@ function drawOverlay(ctx,W,H,g,proj,exporting){
 // ---------- preview ----------
 const frame=$("frame"),mount=$("mount"),box=$("mapBox"),wrap=$("mapWrap"),mapEl=$("map"),ov=$("ov");
 let map=null,scale=1,vw=1080,vh=2400,G=null,PW=1080,PH=2400,VK=1;
-function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2800)}
+function toast(t,undo){const el=$("toast");el.textContent=t;if(undo){const b=document.createElement("button");b.type="button";b.textContent="Undo";b.onclick=()=>{el.hidden=true;undo()};el.append(b)}el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,undo?5000:2800)}
 if(typeof maplibregl==="undefined"){
   $("stage").innerHTML='<div class="fatal">This browser could not start the map engine (WebGL is required). Try Chrome, Edge or Safari.</div>';
 }else{
@@ -745,7 +767,7 @@ frame.addEventListener("pointerup",up);frame.addEventListener("pointercancel",up
 frame.addEventListener("wheel",e=>{if(!map)return;e.preventDefault();zoomAround(toVirt(e),S.zoom-e.deltaY*.0022);syncCam()},{passive:false});
 
 // ---------- controls ----------
-function bindRange(id,get,set,fmt,live){const el=$(id),o=el.parentElement.querySelector("output");el.value=get();
+function bindRange(id,get,set,fmt,live){const el=$(id),o=el.parentElement.querySelector("output");el.value=get();el._get=get;
   el._out=()=>{if(o)o.textContent=fmt(+el.value);const mn=+el.min||0,mx=+el.max||100;el.style.setProperty("--p",((+el.value-mn)/(mx-mn)*100)+"%")};el._out();
   el.addEventListener("input",()=>{set(+el.value);el._out();live()})}
 function outs(){document.querySelectorAll("input[type=range]").forEach(el=>el._out&&el._out())}
@@ -776,7 +798,7 @@ $("tCredit").checked=S.text.credit;$("tCredit").onchange=e=>{S.text.credit=e.tar
 $("tLines").checked=S.text.lines;$("tLines").onchange=e=>{S.text.lines=e.target.checked;redraw()};
 
 // palette
-for(const name in PALETTES){
+for(const [gname,names] of PALETTE_GROUPS){const hd=document.createElement("div");hd.className="swgroup";hd.textContent=gname;$("swatches").append(hd);for(const name of names){
   const p=PALETTES[name],b=document.createElement("button");b.type="button";b.className="sw";b.dataset.p=name;b.setAttribute("aria-label",name+" palette");
   const cv=document.createElement("canvas");cv.width=150;cv.height=96;const x=cv.getContext("2d");x.fillStyle=p.paper;x.fillRect(0,0,150,96);
   x.fillStyle=p.bg;x.fillRect(10,8,130,62);x.save();x.beginPath();x.rect(10,8,130,62);x.clip();
@@ -785,8 +807,9 @@ for(const name in PALETTES){
     .forEach(([col,w,ls])=>{x.strokeStyle=col;x.lineWidth=w;ls.forEach(l=>{x.beginPath();x.moveTo(l[0],l[1]);x.lineTo(l[2],l[3]);x.stroke()})});
   x.restore();x.fillStyle=p.text;x.fillRect(98,78,40,5);x.globalAlpha=.5;x.fillRect(110,86,28,3);
   b.append(cv);const s=document.createElement("span");s.textContent=name;b.append(s);
+  if(GAME_PALETTES.has(name))b.title=`Colors inspired by ${name}. Fan homage, not affiliated.`;
   b.onclick=()=>{S.palette=name;S.colors={...p};syncColors();renderPins();restyle();layout()};$("swatches").append(b);
-}
+}}
 function syncColors(){document.querySelectorAll("[data-c]").forEach(i=>i.value=S.colors[i.dataset.c]);document.querySelectorAll(".sw").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===S.palette)))}
 document.querySelectorAll("[data-c]").forEach(i=>i.addEventListener("input",()=>{S.colors[i.dataset.c]=i.value;S.palette="";syncColors();
   if(i.dataset.c==="paper")frame.style.background=i.value;if(i.dataset.c==="pin")renderPins();if(["paper","text","pin"].includes(i.dataset.c))redraw();else restyle()}));
@@ -988,6 +1011,35 @@ document.addEventListener("gesturestart",e=>e.preventDefault());
 if(TOUCH)$("hint").textContent="Drag to pan · pinch to zoom";
 let sy=null;$("grabber").addEventListener("touchstart",e=>{sy=e.touches[0].clientY},{passive:true});
 $("grabber").addEventListener("touchend",e=>{if(sy!==null&&e.changedTouches[0].clientY-sy>30)setTab(null);sy=null},{passive:true});
+
+// ---------- per-section reset ----------
+const SECTION_KEYS={"Palette":["palette","colors"],"Layout":["layout","margin"],"Text":["text"],"Size":["psize","orient","dpi","wsize","cw","ch","focus","grain"],
+  "Icons & pins":["pins","pinSize","lastIcon"],"Camera":["zoom","bearing","pitch","detail","mirror"],
+  "Layers & line weight":["w","on","buildings","water","parks","tunnels","weight","glow","zscale"],"Frame & wall preview":["mock"],"Points of interest":["poi"]};
+function syncAll(){
+  document.querySelectorAll("input[type=range]").forEach(el=>{if(el._get){el.value=el._get();el._out()}});
+  TIERS.forEach(t=>$("on-"+t.id).checked=S.on[t.id]);
+  [["lyWater","water"],["lyParks","parks"],["lyBuild","buildings"],["lyTun","tunnels"]].forEach(([id,k])=>$(id).checked=S[k]);
+  $("poiCat").value=S.poi.cat;$("poiStyle").value=S.poi.style;
+  $("tTitle").value=S.text.title;$("tSub").value=S.text.sub;$("tTag").value=S.text.tag;$("tCoord").value=S.text.coord;$("tFont").value=S.text.font;$("capPos").value=S.text.pos;
+  $("tUpper").checked=S.text.upper;$("tLines").checked=S.text.lines;$("tCredit").checked=S.text.credit;$("mirror").checked=S.mirror;
+  $("mockOn").checked=S.mock.on;$("mockFrame").value=S.mock.frame;$("mockMat").value=S.mock.mat;$("mockWall").value=S.mock.wall;$("cw").value=S.cw;$("ch").value=S.ch;
+  ["alignSeg","orientSeg","dpiSeg"].forEach(id=>$(id)._sync&&$(id)._sync());
+  fillSizes();syncColors();syncLay();renderPins();poiHint();
+  if(map)map.jumpTo({center:S.center,zoom:S.zoom+S.detail,bearing:S.bearing,pitch:S.pitch});
+  layout();restyle();readout();saveHash();
+}
+const RESET_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v5h5"/></svg>';
+document.querySelectorAll("#rail details").forEach(d=>{
+  const sum=d.querySelector("summary"),name=sum.textContent.trim(),keys=SECTION_KEYS[name];if(!keys)return;
+  const b=document.createElement("button");b.type="button";b.className="sreset";b.title=`Reset ${name}`;b.setAttribute("aria-label",`Reset ${name}`);b.innerHTML=RESET_ICON;
+  sum.append(b);
+  b.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();
+    const before=JSON.stringify(keys.map(k=>S[k])),fresh=structuredClone(DEF);
+    if(JSON.stringify(keys.map(k=>fresh[k]))===before){toast(`${name} is already at its defaults`);return}
+    const snap=JSON.parse(before);keys.forEach(k=>S[k]=fresh[k]);syncAll();
+    toast(`${name} reset`,()=>{keys.forEach((k,i)=>S[k]=snap[i]);syncAll()})});
+});
 
 // remember which sections are open (desktop, this browser only)
 const OPEN_KEY="mapmaking-open";

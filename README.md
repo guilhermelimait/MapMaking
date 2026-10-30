@@ -20,7 +20,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 ![Poster layouts](screenshots/layouts.png)
 
 **Map styling**
-- 15 palettes, from light print styles (Ink, Pencil, Sage, Fjord, Harbor, Mist, Terracotta) to dark wallpaper styles (Noir, Slate, Tron, Blueprint, Ember, Moss, Neon, Sepia). Each of the 12 colors can also be set by hand.
+- 27 palettes in three groups: **Light** print styles (Ink, Pencil, Sage, Fjord, Harbor, Mist, Terracotta, Sepia), **Dark** wallpaper styles (Noir, Slate, Tron, Blueprint, Ember, Moss, Neon) and 12 **Inspired by games** (Fallout, GTA V, Zelda, Minecraft, Pokémon, Cyberpunk, Hollow Knight, Pac-Man, Super Mario, Red Dead, Halo, Portal). Each of the 12 colors can also be set by hand.
 - Separate on/off and line weight for highways, avenues, connectors, streets, service roads, paths and railways. Optional water, parks, buildings and tunnels, plus glow and edge fade.
 - Rotation, a 0–60° tilt and three street-detail levels.
 
@@ -39,7 +39,7 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 
 **More**
 - **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.
-- **Reset all settings** (bottom of the panel) starts over from the defaults.
+- Every section has its own reset button (with Undo), and **Reset all settings** at the bottom of the panel starts over completely.
 - Every setting is stored in the page link. **Copy link** (or **Link** on iPhone) brings back the exact same design later.
 
 ## iPhone
@@ -101,6 +101,7 @@ The first build downloads MapLibre GL JS 4.7.1 with `npm` into `vendor/` (ignore
 - Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the Open Database License. Keep the credit on posters you share or sell; the export includes it by default (Text → OpenStreetMap credit on export).
 - Vector tiles by [OpenFreeMap](https://openfreemap.org), using the [OpenMapTiles](https://openmaptiles.org) schema.
 - [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) 4.7.1, BSD 3-Clause License, bundled in `index.html`.
+- The game-inspired palettes are fan color homages. Game names and trademarks belong to their owners; MapMaking is not affiliated with or endorsed by them.
 - Typefaces from [Google Fonts](https://fonts.google.com), under the SIL Open Font License.
 
 ## Support
