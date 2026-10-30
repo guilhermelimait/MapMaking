@@ -83,7 +83,7 @@ return maplibregl$1;
 /* Layout: iOS inset-grouped settings sheet left; poster on a soft canvas (or framed on a wall) right */
 :root{
   --bg:#f2f2f7;--card:#ffffff;--fill:#e9e9ee;--sep:rgba(60,60,67,.12);
-  --ink:#1c1c1e;--muted:#8a8a8e;--accent:#007aff;--accent-soft:rgba(0,122,255,.1);--green:#34c759;--warn:#ff3b30;
+  --ink:#1c1c1e;--muted:#8a8a8e;--accent:#1c1c1e;--accent-soft:rgba(118,118,128,.12);--green:#34c759;--warn:#ff3b30;
   --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
   --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
   --f-mono:"SF Mono",ui-monospace,"Cascadia Mono",Menlo,Consolas,monospace;
@@ -121,6 +121,8 @@ body{background:var(--bg);color:var(--ink);font:14px/1.4 var(--f-body);-webkit-f
 details{margin-bottom:22px}
 summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:0 6px 7px 14px;font:500 12.5px var(--f-body);letter-spacing:.02em;text-transform:uppercase;color:var(--muted);user-select:none}
 summary::-webkit-details-marker{display:none}
+summary .st{display:flex;align-items:center;gap:8px}
+summary .si{width:16px;height:16px;flex:none;stroke-width:1.9}
 summary::after{content:"";width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;margin-right:4px}
 details[open]>summary::after{transform:rotate(45deg) translate(-2px,-2px)}
 .body{background:var(--card);border-radius:var(--r-card);padding:4px 0;display:grid}
@@ -160,25 +162,25 @@ input[type=color]::-webkit-color-swatch-wrapper{padding:0}
 input[type=color]::-webkit-color-swatch{border:0;border-radius:10px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
 input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .btn{border:0;background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:8px 14px;font:600 14px var(--f-body);cursor:pointer;white-space:nowrap;transition:transform .1s,background .15s}
-.btn:hover{background:rgba(0,122,255,.16)}
+.btn:hover{background:rgba(118,118,128,.2)}
 .btn:active{transform:scale(.97)}
 .btn.primary{background:var(--accent);color:#fff}
-.btn.primary:hover{background:#0a6fe6}
+.btn.primary:hover{background:#3a3a3c}
 .btn.on{background:var(--accent);color:#fff}
 .btn:disabled{opacity:.55;cursor:progress}
-:focus-visible{outline:3px solid rgba(0,122,255,.45);outline-offset:2px}
+:focus-visible{outline:3px solid rgba(60,60,67,.45);outline-offset:2px}
 .layouts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .lay{border:0;background:none;padding:0;cursor:pointer;display:grid;gap:6px;justify-items:center;font:500 12px var(--f-body);color:var(--ink)}
 .lay svg{width:100%;max-width:64px;aspect-ratio:5/7;height:auto;border-radius:6px;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.08);transition:box-shadow .15s,transform .15s}
 .lay:hover svg{transform:translateY(-1px)}
-.lay[aria-pressed="true"] svg{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,122,255,.25)}
+.lay[aria-pressed="true"] svg{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,0,0,.18)}
 .lay[aria-pressed="true"]{color:var(--accent);font-weight:600}
 .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .sw{border:0;border-radius:12px;padding:0;aspect-ratio:1.55;max-width:100%;cursor:pointer;position:relative;overflow:hidden;background:none;box-shadow:0 0 0 .5px rgba(0,0,0,.14),0 2px 6px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
 .sw:hover{transform:translateY(-1px)}
 .sw canvas{width:100%;height:100%;display:block}
 .sw span{position:absolute;left:6px;bottom:6px;font:600 10.5px var(--f-body);letter-spacing:0;padding:2px 7px;border-radius:20px;background:rgba(255,255,255,.88);color:#1c1c1e;box-shadow:0 0 0 .5px rgba(0,0,0,.08)}
-.sw[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,122,255,.25)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--accent),0 4px 12px rgba(0,0,0,.18)}
 .colors{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 10px}
 .colors label{display:grid;gap:5px;font-size:11px;color:var(--muted);text-align:center}
 .pins{display:grid;gap:6px}
@@ -198,7 +200,7 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .pin-row2 input[type=text]{height:30px;background:#fff;box-shadow:0 0 0 .5px var(--sep)}
 /* preview */
 .stage-wrap{position:relative;display:grid;grid-template-rows:1fr;min-width:0;min-height:0;background:radial-gradient(circle at 50% 40%,#fbfbfd 0%,#ececf1 70%)}
-.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;transition:background .3s;padding:58px 24px 122px}
+.stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;transition:background .3s;padding:62px 212px 40px 32px}
 .stage.mock{background:radial-gradient(120% 90% at 18% 8%,rgba(255,255,255,.55),rgba(255,255,255,0) 55%),linear-gradient(180deg,rgba(0,0,0,0) 70%,rgba(0,0,0,.05)),var(--wall)}
 .mount{position:relative}
 .mount.framed{background:#fbfbf9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),0 30px 50px -18px rgba(0,0,0,.38),0 12px 20px -12px rgba(0,0,0,.3)}
@@ -211,8 +213,8 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 #mapWrap{position:absolute;left:0;top:0;transform-origin:0 0}
 #map{position:absolute;left:0;top:0}
 #ov{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-.hint{position:absolute;top:14px;left:50%;transform:translateX(-50%);font:500 12px var(--f-body);color:#3a3a3c;background:rgba(255,255,255,.75);backdrop-filter:blur(16px) saturate(1.8);-webkit-backdrop-filter:blur(16px) saturate(1.8);padding:6px 13px;border-radius:20px;pointer-events:none;white-space:nowrap;box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.06);z-index:2}
-.loading{position:absolute;bottom:150px;left:50%;transform:translateX(-50%);font:600 12px var(--f-body);background:rgba(28,28,30,.82);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 13px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:2}
+.hint{position:absolute;top:14px;left:calc(50% - 90px);transform:translateX(-50%);font:500 12px var(--f-body);color:#3a3a3c;background:rgba(255,255,255,.75);backdrop-filter:blur(16px) saturate(1.8);-webkit-backdrop-filter:blur(16px) saturate(1.8);padding:6px 13px;border-radius:20px;pointer-events:none;white-space:nowrap;box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.06);z-index:2}
+.loading{position:absolute;bottom:20px;left:calc(50% - 90px);transform:translateX(-50%);font:600 12px var(--f-body);background:rgba(28,28,30,.82);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 13px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:2}
 .loading::before{content:"";width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .fatal{max-width:420px;padding:20px;text-align:center;color:var(--muted)}
@@ -221,24 +223,24 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 .readout b{color:var(--ink);font-weight:600}
 .credit{position:absolute;right:16px;bottom:10px;font:10.5px var(--f-body);color:var(--muted);z-index:2}
 .credit a{color:inherit}
-.dock{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:3;display:grid;justify-items:center;gap:8px;padding:10px 10px 10px;
+.dock{position:absolute;right:20px;top:50%;transform:translateY(-50%);z-index:3;display:grid;gap:6px;padding:8px;width:172px;
   border-radius:22px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8);
   box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 12px 32px rgba(0,0,0,.12);max-width:calc(100% - 32px)}
-.dock .readout{padding:0 8px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.dock-btns{display:flex;gap:6px}
-.dbtn{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:14px;padding:10px 16px;background:rgba(118,118,128,.12);color:var(--ink);font:600 14px var(--f-body);cursor:pointer;white-space:nowrap;transition:transform .1s,background .15s}
+.dock .readout{order:2;padding:8px 6px 2px;margin-top:2px;border-top:.5px solid var(--sep);font-size:11.5px;line-height:1.45;text-align:left}
+.dock-btns{display:grid;gap:6px}
+.dbtn{display:flex;align-items:center;gap:9px;border:0;border-radius:14px;padding:10px 16px;background:rgba(118,118,128,.12);color:var(--ink);font:600 14px var(--f-body);cursor:pointer;white-space:nowrap;transition:transform .1s,background .15s}
 .dbtn svg{width:17px;height:17px;flex:none}
 .dbtn:hover{background:rgba(118,118,128,.2)}
 .dbtn:active{transform:scale(.96)}
-.dbtn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(0,122,255,.32)}
-.dbtn.primary:hover{background:#0a6fe6}
+.dbtn.primary{background:#1c1c1e;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.dbtn.primary:hover{background:#3a3a3c}
 .dbtn:disabled{opacity:.6;cursor:progress}
 .kofi-btn{position:absolute;top:12px;right:16px;z-index:4;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#29abe0;
   box-shadow:0 0 0 .5px rgba(0,0,0,.08),0 4px 14px rgba(41,171,224,.4);transition:transform .15s}
 .kofi-btn:hover{transform:scale(1.07)}
 .kofi-btn svg{width:24px;height:24px}
 .mnav{display:none}
-.toast{position:fixed;bottom:calc(150px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(28,28,30,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;padding:10px 16px;border-radius:14px;font:500 13px var(--f-body);z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast{position:fixed;bottom:calc(40px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(28,28,30,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;padding:10px 16px;border-radius:14px;font:500 13px var(--f-body);z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 body{touch-action:manipulation}
 .tabbar,.grabber,.ml{display:none}
 .ready{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:20px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
@@ -254,7 +256,8 @@ body{touch-action:manipulation}
   .mnav{display:flex;align-items:center;min-height:56px;padding:6px 64px 6px max(16px,env(safe-area-inset-left,0px));border-bottom:.5px solid var(--sep);background:rgba(249,249,251,.86);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
   .kofi-btn{top:calc(env(safe-area-inset-top,0px) + 8px);right:max(14px,env(safe-area-inset-right,0px))}
   .stage{padding:12px 12px 78px}
-  .dock{bottom:18px;padding:6px;border-radius:18px}
+  .dock{left:50%;right:auto;top:auto;bottom:18px;transform:translateX(-50%);width:auto;padding:6px;border-radius:18px}
+  .dock-btns{display:flex}
   .dock .readout{display:none}
   .dbtn{padding:9px 14px;font-size:14px;border-radius:13px}
   .credit{right:10px;bottom:4px;font-size:9.5px}
@@ -263,7 +266,7 @@ body{touch-action:manipulation}
   .mnav-title{display:grid;line-height:1.15;min-width:0}
   .mnav-title b{font:700 17px var(--f-display);letter-spacing:-.02em}
   .mnav-title span{font:500 11px var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .loading{bottom:84px}
+  .loading{bottom:84px;left:50%}
   .rail{position:fixed;left:0;right:0;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px));height:var(--sheet);z-index:6;border-right:0;
     border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.12),0 -.5px 0 var(--sep);padding:6px max(14px,env(safe-area-inset-right,0px)) 28px max(14px,env(safe-area-inset-left,0px));
     transform:translateY(calc(100% + var(--tabh) + 40px));transition:transform .32s cubic-bezier(.32,.72,0,1);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -307,12 +310,12 @@ body{touch-action:manipulation}
     </div>
     </div>
 
-    <details data-tab="layout" open data-mode="poster"><summary>Layout</summary><div class="body">
+    <details data-tab="layout" open data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg>Layout</span></summary><div class="body">
       <div class="layouts" id="layouts"></div>
       <div class="row"><label for="margin">Margin</label><input type="range" id="margin" min="0" max="0.16" step="0.005"><output></output></div>
     </div></details>
 
-    <details data-tab="text" open><summary>Text</summary><div class="body">
+    <details data-tab="text" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Text</span></summary><div class="body">
       <div class="row2" data-mode="wall"><label class="lbl" for="capPos">Placement</label>
         <select id="capPos"><option value="off">No text</option><option value="bottom">Bottom</option><option value="top">Top</option><option value="center">Center</option></select></div>
       <div class="row2"><label class="lbl" for="tTitle">Title</label><input type="text" id="tTitle" placeholder="City name"></div>
@@ -336,14 +339,14 @@ body{touch-action:manipulation}
       <div class="sw-row"><label for="tCredit">OpenStreetMap credit on export</label><input type="checkbox" id="tCredit"></div>
     </div></details>
 
-    <details data-tab="icons" open><summary>Icons &amp; pins</summary><div class="body">
+    <details data-tab="icons" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
       <div class="btns"><button class="btn primary" id="pinCenter" type="button">Add at center</button><button class="btn" id="pinMode" type="button">Click map to add</button></div>
       <div class="row"><label for="pinSize">Icon size</label><input type="range" id="pinSize" min="2" max="30" step="0.5"><output></output></div>
       <div class="pins" id="pinList"></div>
       <p class="note" id="pinEmpty">Mark home, a first date or a favourite café with an icon. Each icon can have its own color and label.</p>
     </div></details>
 
-    <details data-tab="style" open><summary>Palette</summary><div class="body">
+    <details data-tab="style" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
       <div class="swatches" id="swatches"></div>
       <div class="colors">
         <label>Land<input type="color" data-c="bg"></label>
@@ -361,9 +364,9 @@ body{touch-action:manipulation}
       </div>
     </div></details>
 
-    <details data-tab="style" open><summary>Layers &amp; line weight</summary><div class="body" id="layers"></div></details>
+    <details data-tab="style" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>Layers &amp; line weight</span></summary><div class="body" id="layers"></div></details>
 
-    <details data-tab="camera" open><summary>Camera</summary><div class="body">
+    <details data-tab="camera" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
       <div class="row"><label for="zoom">Zoom</label><input type="range" id="zoom" min="9" max="17" step="0.01"><output></output></div>
       <div class="row"><label for="bearing">Rotation</label><input type="range" id="bearing" min="-180" max="180" step="1"><output></output></div>
       <div class="row"><label for="pitch">Tilt</label><input type="range" id="pitch" min="0" max="60" step="1"><output></output></div>
@@ -372,7 +375,7 @@ body{touch-action:manipulation}
       <p class="note">Tilt 0 is a straight top-down view. Higher street detail draws more small streets at city-wide zoom.</p>
     </div></details>
 
-    <details data-tab="layout" open><summary>Size</summary><div class="body">
+    <details data-tab="layout" open><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></svg>Size</span></summary><div class="body">
       <div class="row2"><label class="lbl" for="size">Format</label><select id="size"></select></div>
       <div class="row2" data-mode="poster"><span class="lbl">Orientation</span><div class="seg" id="orientSeg"><button type="button" data-v="portrait">Portrait</button><button type="button" data-v="landscape">Landscape</button></div></div>
       <div class="row2" data-mode="poster"><span class="lbl">Print quality</span><div class="seg" id="dpiSeg"><button type="button" data-v="150">150 dpi</button><button type="button" data-v="300">300 dpi</button></div></div>
@@ -382,7 +385,7 @@ body{touch-action:manipulation}
       <div class="row"><label for="grain">Paper grain</label><input type="range" id="grain" min="0" max="1" step="0.02"><output></output></div>
     </div></details>
 
-    <details data-tab="layout" open data-mode="poster"><summary>Frame &amp; wall preview</summary><div class="body">
+    <details data-tab="layout" open data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><rect x="7.5" y="6.5" width="9" height="11"/></svg>Frame &amp; wall preview</span></summary><div class="body">
       <div class="sw-row"><label for="mockOn">Show framed on a wall</label><input type="checkbox" id="mockOn"></div>
       <div class="row2"><label class="lbl" for="mockFrame">Frame</label>
         <select id="mockFrame"><option value="black">Black</option><option value="oak">Oak</option><option value="walnut">Walnut</option><option value="white">White</option><option value="none">No frame</option></select></div>
@@ -393,7 +396,7 @@ body{touch-action:manipulation}
       <p class="note">Mockup PNG saves this framed scene for listings and social posts. Export PNG always saves the print file only.</p>
     </div></details>
 
-    <details data-tab="icons"><summary>Points of interest</summary><div class="body">
+    <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="7" r="2"/><circle cx="17" cy="6" r="2"/><circle cx="9" cy="17" r="2"/><circle cx="18" cy="16" r="2"/></svg>Points of interest</span></summary><div class="body">
       <div class="row2"><label class="lbl" for="poiCat">Show</label>
         <select id="poiCat"><option value="none">None</option><option value="transit">Train &amp; metro stations</option><option value="food">Cafés &amp; restaurants</option><option value="night">Bars &amp; nightlife</option><option value="culture">Museums, theatres, sights</option><option value="shops">Shops</option><option value="all">Everything</option></select></div>
       <div class="row"><label for="poiSize">Size</label><input type="range" id="poiSize" min="0.5" max="12" step="0.25"><output></output></div>
