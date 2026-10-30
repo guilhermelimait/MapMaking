@@ -1,8 +1,12 @@
 name: Release
 
+# Publishes a GitHub release whenever a new notes file lands in docs/releases/.
+# Add docs/releases/vX.Y.Z.md on main to cut release vX.Y.Z (tag is created automatically).
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: ["docs/releases/*.md"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,12 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create GitHub release with index.html attached
+      - name: Create release for the newest notes file
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
         run: |
-          NOTES="docs/releases/${TAG}.md"
-          [ -f "$NOTES" ] || NOTES=/dev/null
+          NOTES=$(ls docs/releases/v*.md | sort -V | tail -n 1)
+          TAG=$(basename "$NOTES" .md)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists"; exit 0
+          fi
           cp index.html "MapMaking-${TAG}.html"
-          gh release create "$TAG" "MapMaking-${TAG}.html" --title "MapMaking ${TAG#v}" --notes-file "$NOTES"
+          gh release create "$TAG" "MapMaking-${TAG}.html" \
+            --target "$GITHUB_SHA" --title "MapMaking ${TAG#v}" --notes-file "$NOTES" --latest
