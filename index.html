@@ -122,6 +122,11 @@ body{background:var(--bg);color:var(--ink);font:14px/1.4 var(--f-body);-webkit-f
 details{margin-bottom:22px}
 summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:0 6px 7px 14px;font:500 12.5px var(--f-body);letter-spacing:.02em;text-transform:uppercase;color:var(--muted);user-select:none}
 summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--ink)}
+.resetBox{display:flex;justify-content:center;padding:4px 0 8px}
+.linkbtn{border:0;background:none;color:var(--muted);font:500 13px var(--f-body);cursor:pointer;padding:8px 12px;border-radius:8px}
+.linkbtn:hover{color:var(--ink);background:var(--fill)}
+.linkbtn.armed{color:#fff;background:var(--warn)}
 summary .st{display:flex;align-items:center;gap:8px}
 summary .si{width:16px;height:16px;flex:none;stroke-width:1.9}
 summary::after{content:"";width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;margin-right:4px}
@@ -214,7 +219,7 @@ input[type=color]::-moz-color-swatch{border:0;border-radius:10px}
 #mapWrap{position:absolute;left:0;top:0;transform-origin:0 0}
 #map{position:absolute;left:0;top:0}
 #ov{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-.hint{position:absolute;top:14px;left:calc(50% - 90px);transform:translateX(-50%);font:500 12px var(--f-body);color:#3a3a3c;background:rgba(255,255,255,.75);backdrop-filter:blur(16px) saturate(1.8);-webkit-backdrop-filter:blur(16px) saturate(1.8);padding:6px 13px;border-radius:20px;pointer-events:none;white-space:nowrap;box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.06);z-index:2}
+.hint{transition:opacity .5s;position:absolute;top:14px;left:calc(50% - 90px);transform:translateX(-50%);font:500 12px var(--f-body);color:#3a3a3c;background:rgba(255,255,255,.75);backdrop-filter:blur(16px) saturate(1.8);-webkit-backdrop-filter:blur(16px) saturate(1.8);padding:6px 13px;border-radius:20px;pointer-events:none;white-space:nowrap;box-shadow:0 0 0 .5px var(--sep),0 4px 14px rgba(0,0,0,.06);z-index:2}
 .loading{position:absolute;bottom:20px;left:calc(50% - 90px);transform:translateX(-50%);font:600 12px var(--f-body);background:rgba(28,28,30,.82);color:#fff;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:6px 13px;border-radius:20px;display:flex;gap:8px;align-items:center;z-index:2}
 .loading::before{content:"";width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -283,9 +288,11 @@ body{touch-action:manipulation}
   .tabbar svg{width:25px;height:25px}
   .tabbar button[aria-pressed="true"]{color:var(--accent)}
   select,input[type=text],input[type=number],.search input[type=search]{font-size:16px}
-  .row,.row2{grid-template-columns:96px 1fr auto}
+  .row,.row2{grid-template-columns:96px 1fr 52px}
   .row2{grid-template-columns:96px 1fr}
-  .layer{grid-template-columns:96px 1fr 40px 44px}
+  .layer{grid-template-columns:96px 1fr 52px 44px}
+  summary{pointer-events:none}
+  summary::after{display:none}
   .colors{grid-template-columns:repeat(4,1fr)}
   .toast{bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 84px + var(--sheetOpen,0px))}
 }
@@ -310,6 +317,24 @@ body{touch-action:manipulation}
       <button type="button" id="modeWall" aria-pressed="false">Wallpaper</button>
     </div>
     </div>
+
+    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
+      <div class="swatches" id="swatches"></div>
+      <div class="colors">
+        <label>Land<input type="color" data-c="bg"></label>
+        <label>Water<input type="color" data-c="water"></label>
+        <label>Parks<input type="color" data-c="park"></label>
+        <label>Buildings<input type="color" data-c="building"></label>
+        <label>Streets<input type="color" data-c="minor"></label>
+        <label>Avenues<input type="color" data-c="mid"></label>
+        <label>Highways<input type="color" data-c="major"></label>
+        <label>Rail<input type="color" data-c="rail"></label>
+        <label>Points<input type="color" data-c="poi"></label>
+        <label>Icons<input type="color" data-c="pin"></label>
+        <label>Paper<input type="color" data-c="paper"></label>
+        <label>Text<input type="color" data-c="text"></label>
+      </div>
+    </div></details>
 
     <details data-tab="layout" data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg>Layout</span></summary><div class="body">
       <div class="layouts" id="layouts"></div>
@@ -340,32 +365,22 @@ body{touch-action:manipulation}
       <div class="sw-row"><label for="tCredit">OpenStreetMap credit on export</label><input type="checkbox" id="tCredit"></div>
     </div></details>
 
+    <details data-tab="layout"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></svg>Size</span></summary><div class="body">
+      <div class="row2"><label class="lbl" for="size">Format</label><select id="size"></select></div>
+      <div class="row2" data-mode="poster"><span class="lbl">Orientation</span><div class="seg" id="orientSeg"><button type="button" data-v="portrait">Portrait</button><button type="button" data-v="landscape">Landscape</button></div></div>
+      <div class="row2" data-mode="poster"><span class="lbl">Print quality</span><div class="seg" id="dpiSeg"><button type="button" data-v="150">150 dpi</button><button type="button" data-v="300">300 dpi</button></div></div>
+      <div class="row2" id="customRow" hidden><span class="lbl">W × H px</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><input type="number" id="cw" min="200" max="10000" aria-label="Width"><input type="number" id="ch" min="200" max="10000" aria-label="Height"></div></div>
+      <div class="row"><label for="focus">Edge fade</label><input type="range" id="focus" min="0" max="1" step="0.02"><output></output></div>
+      <div class="row"><label for="grain">Paper grain</label><input type="range" id="grain" min="0" max="1" step="0.02"><output></output></div>
+    </div></details>
+
     <details data-tab="icons"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>Icons &amp; pins</span></summary><div class="body">
       <div class="btns"><button class="btn primary" id="pinCenter" type="button">Add at center</button><button class="btn" id="pinMode" type="button">Click map to add</button></div>
       <div class="row"><label for="pinSize">Icon size</label><input type="range" id="pinSize" min="2" max="30" step="0.5"><output></output></div>
       <div class="pins" id="pinList"></div>
       <p class="note" id="pinEmpty">Mark home, a first date or a favourite café with an icon. Each icon can have its own color and label.</p>
     </div></details>
-
-    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7" r="1.1"/><circle cx="15.5" cy="7.5" r="1.1"/></svg>Palette</span></summary><div class="body">
-      <div class="swatches" id="swatches"></div>
-      <div class="colors">
-        <label>Land<input type="color" data-c="bg"></label>
-        <label>Water<input type="color" data-c="water"></label>
-        <label>Parks<input type="color" data-c="park"></label>
-        <label>Buildings<input type="color" data-c="building"></label>
-        <label>Streets<input type="color" data-c="minor"></label>
-        <label>Avenues<input type="color" data-c="mid"></label>
-        <label>Highways<input type="color" data-c="major"></label>
-        <label>Rail<input type="color" data-c="rail"></label>
-        <label>Points<input type="color" data-c="poi"></label>
-        <label>Icons<input type="color" data-c="pin"></label>
-        <label>Paper<input type="color" data-c="paper"></label>
-        <label>Text<input type="color" data-c="text"></label>
-      </div>
-    </div></details>
-
-    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>Layers &amp; line weight</span></summary><div class="body" id="layers"></div></details>
 
     <details data-tab="camera"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Camera</span></summary><div class="body">
       <div class="row"><label for="zoom">Zoom</label><input type="range" id="zoom" min="9" max="17" step="0.01"><output></output></div>
@@ -376,15 +391,7 @@ body{touch-action:manipulation}
       <p class="note">Tilt 0 is a straight top-down view. Higher street detail draws more small streets at city-wide zoom.</p>
     </div></details>
 
-    <details data-tab="layout"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/></svg>Size</span></summary><div class="body">
-      <div class="row2"><label class="lbl" for="size">Format</label><select id="size"></select></div>
-      <div class="row2" data-mode="poster"><span class="lbl">Orientation</span><div class="seg" id="orientSeg"><button type="button" data-v="portrait">Portrait</button><button type="button" data-v="landscape">Landscape</button></div></div>
-      <div class="row2" data-mode="poster"><span class="lbl">Print quality</span><div class="seg" id="dpiSeg"><button type="button" data-v="150">150 dpi</button><button type="button" data-v="300">300 dpi</button></div></div>
-      <div class="row2" id="customRow" hidden><span class="lbl">W × H px</span>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><input type="number" id="cw" min="200" max="10000" aria-label="Width"><input type="number" id="ch" min="200" max="10000" aria-label="Height"></div></div>
-      <div class="row"><label for="focus">Edge fade</label><input type="range" id="focus" min="0" max="1" step="0.02"><output></output></div>
-      <div class="row"><label for="grain">Paper grain</label><input type="range" id="grain" min="0" max="1" step="0.02"><output></output></div>
-    </div></details>
+    <details data-tab="style"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>Layers &amp; line weight</span></summary><div class="body" id="layers"></div></details>
 
     <details data-tab="layout" data-mode="poster"><summary><span class="st"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><rect x="7.5" y="6.5" width="9" height="11"/></svg>Frame &amp; wall preview</span></summary><div class="body">
       <div class="sw-row"><label for="mockOn">Show framed on a wall</label><input type="checkbox" id="mockOn"></div>
@@ -406,6 +413,7 @@ body{touch-action:manipulation}
       <p class="note" id="poiNote"></p>
     </div></details>
 
+    <div class="resetBox" data-tab="place"><button type="button" class="linkbtn" id="resetAll">Reset all settings</button></div>
   </aside>
 
   <main class="stage-wrap">
@@ -432,7 +440,7 @@ body{touch-action:manipulation}
     </div>
   </main>
 </div>
-<nav class="tabbar" id="tabbar" aria-label="Sections"><button type="button" data-t="place" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3"/></svg><span>Place</span></button><button type="button" data-t="layout" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg><span>Layout</span></button><button type="button" data-t="text" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19 9 5l5 14M5.8 14h6.4M15.5 19v-5.2a2.8 2.8 0 0 1 5.5 0V19M15.5 16h5.5"/></svg><span>Text</span></button><button type="button" data-t="icons" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span>Icons</span></button><button type="button" data-t="style" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/></svg><span>Style</span></button><button type="button" data-t="camera" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span>Camera</span></button></nav>
+<nav class="tabbar" id="tabbar" aria-label="Sections"><button type="button" data-t="place" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3"/></svg><span>Place</span></button><button type="button" data-t="style" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-2-.5-1.2.3-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.8 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/></svg><span>Style</span></button><button type="button" data-t="layout" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M8 6h8v8H8zM9 17.5h6"/></svg><span>Layout</span></button><button type="button" data-t="text" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19 9 5l5 14M5.8 14h6.4M15.5 19v-5.2a2.8 2.8 0 0 1 5.5 0V19M15.5 16h5.5"/></svg><span>Text</span></button><button type="button" data-t="icons" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11a6.5 6.5 0 0 1 13 0c0 4.8-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span>Icons</span></button><button type="button" data-t="camera" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span>Camera</span></button></nav>
 <div class="ready" id="ready" hidden><div class="ready-card">
   <img id="readyImg" alt="Exported image">
   <p class="note" id="readyNote">Tap Save to Photos, or press and hold the image.</p>
@@ -711,9 +719,9 @@ function poiHint(){const n=$("poiNote"),rz=S.zoom+S.detail,hid=S.poi.cat!=="none
   n.style.color=hid?"var(--warn)":"";n.textContent=hid?`Hidden at this zoom. Zoom in to ${(14-S.detail).toFixed(0)}+ or raise street detail to show these points.`:"Stations show at any zoom. Other categories need zoom 14+ (or 12+ with street detail Max)."}
 function readout(){
   poiHint();const[w,h]=outSize(),mpp=40075016.686*Math.cos(S.center[1]*Math.PI/180)/(512*2**(S.zoom+S.detail)),km=vw*mpp/1000;
-  let phys="";if(S.mode==="poster"&&S.psize!=="custom"){phys=` · ${S.psize}${S.orient==="landscape"?" landscape":""} · ${S.dpi} dpi`}
+  let phys="";if(S.mode==="poster"&&S.psize!=="custom"){phys=`${S.psize}${S.orient==="landscape"?" landscape":""} · ${S.dpi} dpi<br>`}
   $("mSize").textContent=(S.fiction?S.fiction.name:(S.text.title||S.place))+" · "+(S.mode==="poster"&&S.psize!=="custom"?S.psize+(S.orient==="landscape"?" landscape":""):w+"×"+h);
-  $("readout").innerHTML=`<b>${w} × ${h}</b> px${phys} · <b>${km<10?km.toFixed(2):km.toFixed(1)}</b> km across`;
+  $("readout").innerHTML=`<b>${w} × ${h}</b> px<br>${phys}<b>${km<10?km.toFixed(2):km.toFixed(1)}</b> km across`;
 }
 let styleT=0;function restyle(){if(!map)return;cancelAnimationFrame(styleT);styleT=requestAnimationFrame(()=>{map.setStyle(buildStyle(),{diff:true});drawPreviewOverlay();saveHash()})}
 function redraw(){drawPreviewOverlay();saveHash()}
@@ -821,7 +829,7 @@ function renderPins(){const L=$("pinList");L.innerHTML="";$("pinEmpty").hidden=S
     d.querySelector('[data-a="center"]').onclick=()=>{if(map){map.jumpTo({center:p.ll});syncCam()}};
     d.querySelector('[data-a="del"]').onclick=()=>{S.pins.splice(i,1);renderPins();redraw()};
     L.append(d)})}
-$("pinMode").onclick=()=>{pinMode=!pinMode;$("pinMode").textContent=pinMode?"Done adding":"Click map to add";$("pinMode").classList.toggle("on",pinMode);frame.classList.toggle("pinning",pinMode);$("hint").textContent=pinMode?"Click the map to drop a pin":"Drag to pan · scroll or pinch to zoom"};
+$("pinMode").onclick=()=>{pinMode=!pinMode;$("pinMode").textContent=pinMode?"Done adding":"Click map to add";$("pinMode").classList.toggle("on",pinMode);frame.classList.toggle("pinning",pinMode);$("hint").textContent=pinMode?(TOUCH?"Tap the map to drop an icon":"Click the map to drop an icon"):(TOUCH?"Drag to pan · pinch to zoom":"Drag to pan · scroll or pinch to zoom");$("hint").style.opacity=pinMode||!hinted?"1":"0"};
 $("pinCenter").onclick=()=>addPin([...S.center]);
 bindRange("pinSize",()=>S.pinSize,v=>S.pinSize=v,v=>v.toFixed(1),redraw);
 
@@ -858,7 +866,7 @@ $("modeWall").onclick=()=>{if(S.mode==="wall")return;setMode("wall")};
 // ---------- search ----------
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function setPlace(name,country,fiction=null){S.place=name;if(country!==undefined)S.country=country;S.fiction=fiction;
-  $("placeLbl").innerHTML=fiction?`Disguised as <b>${esc(fiction.name)}</b>`:`<b>${esc(name)}</b>${S.country?" · "+esc(S.country):""}`;
+  document.title=(fiction?fiction.name:name)+" · MapMaking";typeof syncDisguise==="function"&&syncDisguise();$("placeLbl").innerHTML=fiction?`Disguised as <b>${esc(fiction.name)}</b>`:`<b>${esc(name)}</b>${S.country?" · "+esc(S.country):""}`;
   $("tTitle").placeholder=fiction?fiction.name:name;$("tSub").placeholder=fiction?"(none)":(S.country||"Country");saveHash();drawPreviewOverlay()}
 function goTo(lon,lat,zoom,name,country){if(!map)return;map.jumpTo({center:[lon,lat],zoom:zoom+S.detail,bearing:S.bearing});setPlace(name,country);syncCam()}
 function fitBox(w,s,e,n,name,country){if(!map)return;map.fitBounds([[w,s],[e,n]],{padding:20,duration:0,maxZoom:15+S.detail,bearing:S.bearing,pitch:S.pitch});
@@ -882,11 +890,15 @@ $("searchForm").onsubmit=async e=>{
   }catch(err){bx.innerHTML='<button type="button" disabled>Search is unavailable right now</button>'}
 };
 document.addEventListener("click",e=>{if(!$("searchForm").contains(e.target))$("results").hidden=true});
+$("searchForm").addEventListener("keydown",e=>{if(e.key==="Escape"){$("results").hidden=true;$("q").blur()}});
 function fakeIdentity(seed){let a=seed>>>0;const R=()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
   const A=["Vel","Cas","Mor","Lun","Ter","San","Bel","Ar","Por","Val","Ost","Cor","Mir","Sel","Tav","Lis","Qua","Dren","Hal","Ivo"],B=["a","o","e","i","ar","en","u"],C=["na","ra","ssa","vo","nto","lia","rena","polis","mar","gard","burg","haven","stad","ville"];
   const p=x=>x[Math.floor(R()*x.length)];return{name:p(A)+p(B)+p(C),coord:[R()*340-170,R()*120-55]}}
-$("disguise").onclick=()=>{S.mirror=Math.random()<.5;$("mirror").checked=S.mirror;S.bearing=Math.round(Math.random()*360-180);
-  setPlace(S.place,undefined,fakeIdentity(Math.floor(Math.random()*1e9)));layout();syncCam();toast("Rotated"+(S.mirror?", mirrored":"")+" and renamed")};
+function syncDisguise(){$("disguise").textContent=S.fiction?"Show real place":"Disguise this place"}
+$("disguise").onclick=()=>{
+  if(S.fiction){S.mirror=false;$("mirror").checked=false;S.bearing=0;setPlace(S.place,S.country,null);layout();syncCam();syncDisguise();toast("Back to the real "+S.place);return}
+  S.mirror=Math.random()<.5;$("mirror").checked=S.mirror;S.bearing=Math.round(Math.random()*360-180);
+  setPlace(S.place,undefined,fakeIdentity(Math.floor(Math.random()*1e9)));layout();syncCam();syncDisguise();toast("Rotated"+(S.mirror?", mirrored":"")+" and renamed")};
 $("surprise").onclick=()=>{if(MOBILE.matches)setTab(null);const c=CITIES[Math.floor(Math.random()*CITIES.length)];S.bearing=0;S.mirror=false;$("mirror").checked=false;
   goTo(c[1]+(Math.random()-.5)*.02,c[2]+(Math.random()-.5)*.015,11.8+Math.random()*1.4,c[0],c[3]);layout()};
 
@@ -977,8 +989,21 @@ if(TOUCH)$("hint").textContent="Drag to pan · pinch to zoom";
 let sy=null;$("grabber").addEventListener("touchstart",e=>{sy=e.touches[0].clientY},{passive:true});
 $("grabber").addEventListener("touchend",e=>{if(sy!==null&&e.changedTouches[0].clientY-sy>30)setTab(null);sy=null},{passive:true});
 
+// remember which sections are open (desktop, this browser only)
+const OPEN_KEY="mapmaking-open";
+try{const o=JSON.parse(localStorage.getItem(OPEN_KEY)||"[]");document.querySelectorAll("#rail details").forEach((d,i)=>{if(!MOBILE.matches&&o.includes(d.querySelector("summary").textContent.trim()))d.open=true})}catch(e){}
+document.querySelectorAll("#rail details").forEach(d=>d.addEventListener("toggle",()=>{if(MOBILE.matches)return;
+  try{localStorage.setItem(OPEN_KEY,JSON.stringify([...document.querySelectorAll("#rail details[open] summary")].map(x=>x.textContent.trim())))}catch(e){}}));
+// fade the drag hint after the first interaction
+let hinted=false;const hideHint=()=>{if(hinted||pinMode)return;hinted=true;setTimeout(()=>{if(!pinMode)$("hint").style.opacity="0"},1500)};
+frame.addEventListener("pointerdown",hideHint);frame.addEventListener("wheel",hideHint,{passive:true});
+// reset everything (two taps so it can't happen by accident)
+let resetT=0;$("resetAll").onclick=()=>{const b=$("resetAll");
+  if(!b.classList.contains("armed")){b.classList.add("armed");b.textContent="Tap again to reset everything";clearTimeout(resetT);resetT=setTimeout(()=>{b.classList.remove("armed");b.textContent="Reset all settings"},3000);return}
+  try{localStorage.removeItem(OPEN_KEY)}catch(e){}location.hash="";location.reload()};
+
 // boot
-syncColors();syncLay();renderPins();outs();setMode(S.mode);setPlace(S.place,S.country,S.fiction);
+syncColors();syncLay();renderPins();outs();setMode(S.mode);setPlace(S.place,S.country,S.fiction);syncDisguise();
 if(map)map.once("load",()=>{layout();syncCam()});
 document.fonts&&document.fonts.ready.then(()=>{layout()});
 </script>

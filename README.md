@@ -38,7 +38,8 @@ Design minimalist city map posters and wallpapers from real OpenStreetMap data, 
 - Phone, tablet, handheld and desktop sizes up to 5K, with the text on top of the map.
 
 **More**
-- **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one.
+- **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.
+- **Reset all settings** (bottom of the panel) starts over from the defaults.
 - Every setting is stored in the page link. **Copy link** (or **Link** on iPhone) brings back the exact same design later.
 
 ## iPhone
