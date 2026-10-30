@@ -44,7 +44,7 @@
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font:14px/1.4 var(--f-body);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
 .app{display:grid;grid-template-columns:minmax(340px,390px) 1fr;height:100%}
-.rail{background:var(--bg);overflow-y:auto;min-width:0;border-right:1px solid var(--sep);padding:22px 18px 48px max(18px,env(safe-area-inset-left,0px));scrollbar-width:thin}
+.rail{background:var(--bg);overflow-y:auto;scrollbar-gutter:stable;min-width:0;border-right:1px solid var(--sep);padding:22px 18px 48px max(18px,env(safe-area-inset-left,0px));scrollbar-width:thin}
 .brand{display:flex;align-items:center;gap:10px;margin:0 2px 16px}
 .brand .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#1c1c1e,#3a3a3c);display:grid;place-items:center;flex:none;box-shadow:0 1px 2px rgba(0,0,0,.15)}
 .brand h1{font:700 28px/1 var(--f-display);letter-spacing:-.025em;margin:0}
