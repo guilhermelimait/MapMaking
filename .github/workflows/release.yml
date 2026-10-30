@@ -1,0 +1,23 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create GitHub release with index.html attached
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          NOTES="docs/releases/${TAG}.md"
+          [ -f "$NOTES" ] || NOTES=/dev/null
+          cp index.html "MapMaking-${TAG}.html"
+          gh release create "$TAG" "MapMaking-${TAG}.html" --title "MapMaking ${TAG#v}" --notes-file "$NOTES"
