@@ -1,14 +1,35 @@
 # MapMaking
 
-Design minimalist city map posters and wallpapers from real OpenStreetMap data, right in the browser. Search any place, pick a layout and palette, add your own icons, and export a print-ready PNG or a framed mockup. It works on desktop and on iPhone.
+**Turn any place on Earth into a minimalist map poster or wallpaper.** Search a city, pick a palette and layout, drop a pin on the places that matter, and export a print-ready file — free, in the browser, on desktop and iPhone. No account, no watermark.
 
-**Live app:** https://guilhermelimait.github.io/MapMaking/
+**[Open the app →](https://guilhermelimait.github.io/MapMaking/)**
 
+[![Live app](https://img.shields.io/badge/Live%20app-guilhermelimait.github.io%2FMapMaking-111?logo=googlemaps&logoColor=white)](https://guilhermelimait.github.io/MapMaking/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-555)](LICENSE)
 [![Support MapMaking on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20MapMaking-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/guilhermelimait)
 
-![MapMaking on desktop](screenshots/desktop.png)
+![Twelve city posters made with MapMaking](screenshots/gallery.jpg)
+
+<sub>New York · Paris · Tokyo · Rio de Janeiro · Venezia · Amsterdam · San Francisco · Istanbul · Barcelona · Kyoto · Buenos Aires · Milano — every poster above was exported straight from the app.</sub>
+
+## Different views
+
+Tilt the camera up to 60° and rotate it to turn a flat street plan into a skyline-style perspective. It works with every palette, layout and size.
+
+![Tilted views of Manhattan, Lisboa, London and Hong Kong](screenshots/views.jpg)
+
+<sub>Manhattan (Slate) · Lisboa (Blueprint) · London (Moss) · Hong Kong (Cyberpunk-inspired)</sub>
+
+## Ideas
+
+- **A city you love** — your hometown, where you studied, the trip you still talk about.
+- **Where it happened** — drop a heart where you met, a home where you live now, and connect them with a journey line.
+- **Wallpapers** — dark palettes like Noir, Tron and Neon at phone, tablet or 5K desktop sizes.
+- **Gifts and shop listings** — export a framed wall mockup, then order the print and a matching frame.
 
 ## Features
+
+![MapMaking on desktop](screenshots/desktop.png)
 
 **Posters**
 - Five layouts: **Fade** (the map fades into the paper), **Block** (a colored map panel with left-aligned text), **Border** (double-line frame), **Circle** and **Heart**.
