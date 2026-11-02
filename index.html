@@ -595,10 +595,21 @@ const DEF={mode:"poster",layout:"fade",margin:.07,center:[9.19,45.4642],zoom:12.
 let S=structuredClone(DEF);
 
 // ---------- URL state ----------
-const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/,"");
+// Links store only what differs from the defaults (and from the chosen palette), as "#~" + base64url.
+const SUBS=["colors","w","on","poi","text","mock","journey","pdf"];
+const baseFor=pal=>{const b=structuredClone(DEF);if(PALETTES[pal])b.colors={...PALETTES[pal]};return b};
+function diffObj(a,d){const o={};for(const k in a){const v=a[k],dv=d?d[k]:undefined;if(JSON.stringify(v)===JSON.stringify(dv))continue;
+  if(v&&typeof v==="object"&&!Array.isArray(v)&&dv&&typeof dv==="object"&&!Array.isArray(dv)){const sd=diffObj(v,dv);if(Object.keys(sd).length)o[k]=sd}else o[k]=v}return o}
+const r5=x=>Math.round(x*1e5)/1e5;
+const b64u=t=>btoa(unescape(encodeURIComponent(t))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const unb64u=t=>decodeURIComponent(escape(atob(t.replace(/-/g,"+").replace(/_/g,"/"))));
+function enc(o){const c=structuredClone(o);c.center=c.center.map(r5);c.zoom=Math.round(c.zoom*100)/100;c.bearing=Math.round(c.bearing*10)/10;c.pitch=Math.round(c.pitch*10)/10;
+  (c.pins||[]).forEach(p=>{if(p.ll)p.ll=p.ll.map(r5)});const d=diffObj(c,baseFor(c.palette));if(!("palette" in d)&&c.palette!==DEF.palette)d.palette=c.palette;
+  return "~"+b64u(JSON.stringify(d))}
+function dec(h){if(h[0]==="~"){const o=JSON.parse(unb64u(h.slice(1))),b=baseFor(o.palette||DEF.palette),n={...b,...o};for(const k of SUBS)n[k]={...b[k],...(o[k]||{})};return n}
+  const o=JSON.parse(decodeURIComponent(escape(atob(h)))),d=structuredClone(DEF),n={...d,...o};for(const k of SUBS)n[k]={...d[k],...(o[k]||{})};return n}
 function saveHash(){clearTimeout(saveHash.t);saveHash.t=setTimeout(()=>{try{history.replaceState(null,"","#"+enc(S))}catch(e){}},400)}
-(function loadHash(){try{if(location.hash.length>10){const o=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
-  const d=structuredClone(DEF);S={...d,...o};for(const k of["colors","w","on","poi","text","mock","journey","pdf"])S[k]={...d[k],...(o[k]||{})}}}catch(e){}
+(function loadHash(){try{if(location.hash.length>2)S=dec(location.hash.slice(1))}catch(e){}
   S.pins=(S.pins||[]).map(p=>Array.isArray(p)?{ll:p,icon:"pin",color:"",label:""}:p)})();
 
 // ---------- geometry ----------
@@ -1081,7 +1092,21 @@ $("mockBtn").onclick=()=>withBtn($("mockBtn"),"Loading streets…",async()=>{
   S.psize="custom";S.cw=Math.round(W*k);S.ch=Math.round(H*k);
   let p;try{p=await renderPoster($("mockBtn"))}finally{Object.assign(S,saved)}
   const c=await renderMockup(p);await deliver(c,`${fileBase()}-mockup.png`,"Mockup · 2000 × 2500")});
-$("copyLink").onclick=async()=>{clearTimeout(saveHash.t);if(TOUCH&&navigator.share){try{history.replaceState(null,"","#"+enc(S));await navigator.share({title:"MapMaking map",url:location.href});return}catch(e){if(e.name==="AbortError")return}}try{history.replaceState(null,"","#"+enc(S));await navigator.clipboard.writeText(location.href);toast("Link with these settings copied")}catch(e){toast("Copy failed. The address bar holds the link.")}};
+// Short links via is.gd (only when the person taps Copy link / Link). Falls back to the full link.
+const _short={};
+function shortLink(long){if(_short[long])return Promise.resolve(_short[long]);
+  return new Promise(res=>{const cb="__isgd"+Date.now(),sc=document.createElement("script");let done=false;
+    const end=v=>{if(done)return;done=true;delete window[cb];sc.remove();clearTimeout(t);if(v)_short[long]=v;res(v||long)};
+    const t=setTimeout(()=>end(null),4000);window[cb]=r=>end(r&&r.shorturl);sc.onerror=()=>end(null);
+    sc.src="https://is.gd/create.php?format=json&callback="+cb+"&url="+encodeURIComponent(long);document.head.append(sc)})}
+$("copyLink").onclick=async()=>{clearTimeout(saveHash.t);try{history.replaceState(null,"","#"+enc(S))}catch(e){}const long=location.href,cached=_short[long];
+  if(TOUCH&&navigator.share){const url=cached||await shortLink(long);
+    try{await navigator.share({title:"MapMaking map",url});return}catch(e){if(e.name==="AbortError")return;if(e.name==="NotAllowedError"){toast("Short link ready. Tap Link again to share it.");return}}}
+  const p=cached?Promise.resolve(cached):shortLink(long);
+  try{if(window.ClipboardItem&&navigator.clipboard.write){await navigator.clipboard.write([new ClipboardItem({"text/plain":p.then(u=>new Blob([u],{type:"text/plain"}))})])}
+    else await navigator.clipboard.writeText(await p);
+    const u=await p;toast(u===long?"Link with these settings copied":"Short link copied: "+u.replace(/^https?:\/\//,""))}
+  catch(e){try{await navigator.clipboard.writeText(await p);toast("Link copied")}catch(e2){toast("Copy failed. The address bar holds the link.")}}};
 
 // ---------- mobile sheet + tabs ----------
 let tab=null;

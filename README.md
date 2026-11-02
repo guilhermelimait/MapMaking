@@ -71,7 +71,7 @@ Tilt the camera up to 60° and rotate it to turn a flat street plan into a skyli
 - **Disguise this place** rotates, optionally mirrors and renames the map, so a real city becomes a fictional one. **Show real place** undoes it.
 - Every section has its own reset button (with Undo), and **Reset all settings** at the bottom of the panel starts over completely.
 - **My designs** saves favourite designs in your browser to reopen later.
-- Every setting is stored in the page link. **Copy link** (or **Link** on iPhone) brings back the exact same design later.
+- Every setting is stored in the page link, which only keeps what differs from the defaults. **Copy link** (or **Link** on iPhone) turns it into a short [is.gd](https://is.gd) link that brings back the exact same design. If is.gd can't be reached, the full link is copied instead.
 
 ## iPhone
 
