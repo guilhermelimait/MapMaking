@@ -136,7 +136,7 @@ The first build downloads MapLibre GL JS 4.7.1 with `npm` into `vendor/` (ignore
 
 ## Credits and licenses
 
-- Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the Open Database License. Keep the credit on posters you share or sell; the export includes it by default (Text → OpenStreetMap credit on export).
+- Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the Open Database License. If you share or sell posters made with MapMaking, credit "© OpenStreetMap contributors" nearby, for example in the post or listing description.
 - Vector tiles by [OpenFreeMap](https://openfreemap.org), using the [OpenMapTiles](https://openmaptiles.org) schema.
 - [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) 4.7.1, BSD 3-Clause License, bundled in `index.html`.
 - The game-inspired palettes are fan color homages. Game names and trademarks belong to their owners; MapMaking is not affiliated with or endorsed by them.
