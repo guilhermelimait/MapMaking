@@ -67,8 +67,9 @@ It's free, simple, and offered as is. Enjoy it!
 
 ![Framed mockup](screenshots/mockup.png)
 
-**Frames**
+**Frames and prints**
 - **Buy frame** (next to Export) opens Amazon with a frame search for your exact poster size, in your country's Amazon store. It is an affiliate link.
+- **Order print** opens [MYPOSTER](https://www.myposter.com) in your country's store (Italy, Germany, Austria, Switzerland, France, Belgium, the Netherlands, Luxembourg, Spain or the US). Export your poster first, then upload it there.
 
 **Wallpapers**
 - Phone, tablet, handheld and desktop sizes up to 5K, with the text on top of the map.

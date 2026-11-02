@@ -429,6 +429,7 @@ body{touch-action:manipulation}
           <button class="dbtn" id="pdfBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 14h6M10 17h4"/></svg><span class="dl">Print PDF</span><span class="ml">PDF</span></button>
           <button class="dbtn" id="exportBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg><span class="dl">Export</span><span class="ml">Export</span></button>
           <a class="dbtn" id="frameBtn" target="_blank" rel="sponsored noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.2 11h10.4l2-8H6.3"/></svg><span class="dl" id="frameLbl">Buy a frame</span><span class="ml">Frame</span></a>
+          <a class="dbtn" id="printBtn" target="_blank" rel="sponsored noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg><span class="dl">Order print</span><span class="ml">Print</span></a>
         </div>
         <p class="dock-aff" id="shopNote" hidden>Amazon affiliate link: MapMaking earns from qualifying purchases.</p>
       </div>
@@ -439,6 +440,7 @@ body{touch-action:manipulation}
 <div class="ready" id="ready" hidden><div class="ready-card">
   <img id="readyImg" alt="Exported image">
   <p class="note" id="readyNote">Tap Save to Photos, or press and hold the image.</p>
+  <a class="ready-shop" id="readyPrint" target="_blank" rel="sponsored noopener" hidden>Order this as a print</a>
   <a class="ready-shop" id="readyShop" target="_blank" rel="sponsored noopener" hidden></a>
   <div class="btns"><button type="button" class="btn" id="readyClose">Close</button><button type="button" class="btn" id="readyShare">Save to Photos</button></div>
 </div></div>
@@ -1121,7 +1123,17 @@ const STORES={it:["amazon.it","cornice"],uk:["amazon.co.uk","picture frame"],de:
 function storeKey(){const l=(navigator.language||"en-US").toLowerCase();if(l.startsWith("it"))return"it";if(l==="pt-br"||l.startsWith("pt"))return"br";if(l==="en-gb")return"uk";if(l.startsWith("de"))return"de";if(l.startsWith("fr"))return"fr";if(l.startsWith("es"))return"es";return"com"}
 function frameQuery(){if(S.mode!=="poster")return null;if(S.psize==="custom")return null;const[a,b,u]=POSTER_SIZES[S.psize];
   if(/^A\d$/.test(S.psize))return S.psize;if(u==="in")return`${a}x${b} inch`;if(S.psize==="sq30")return"30x30 cm";return`${a}x${b} cm`}
-function syncShop(){const q=frameQuery(),k=storeKey(),[dom,word]=STORES[k],tag=SHOP.amazon[k];$("frameBtn").hidden=!q;$("shopNote").hidden=!q||!tag;$("readyShop").hidden=!q;if(!q)return;
+// Print orders: MYPOSTER store for the visitor's language, with referral tracking where available.
+const PRINT_AWIN=Object.fromEntries(Object.entries({it:"21180",de:"13451",at:"13479",ch:"13452",fr:"13136",es:"21179",nl:"12938"}).map(([k,m])=>[k,{mid:m,aff:"3142352"}]));
+function printStore(){const l=(navigator.language||"en-US").toLowerCase();
+  return l.startsWith("it")?["it","https://www.myposter.it/stampa-poster"]:l==="de-at"?["at","https://www.myposter.at/"]:l.endsWith("-ch")?["ch","https://www.myposter.ch/"]:l.endsWith("-be")?["be","https://www.myposter.be/"]:l.endsWith("-lu")?["lu","https://www.myposter.lu/"]:
+    l.startsWith("de")?["de","https://www.myposter.de/posterdruck"]:l.startsWith("fr")?["fr","https://www.myposter.fr/impression-poster"]:l.startsWith("es")?["es","https://www.myposter.es/poster"]:l.startsWith("nl")?["nl","https://www.myposter.nl/posterafdruk"]:["com","https://www.myposter.com/poster"]}
+function printUrl(){const[k,u]=printStore(),a=PRINT_AWIN[k];
+  return a?`https://www.awin1.com/cread.php?awinmid=${a.mid}&awinaffid=${a.aff}&ued=${encodeURIComponent(u)}`:u}
+function syncPrint(){const on=S.mode==="poster",u=printUrl();$("printBtn").hidden=!on;$("readyPrint").hidden=!on;$("printBtn").href=u;$("readyPrint").href=u;
+  $("printBtn").title="Export your poster, then upload it on MYPOSTER to order a print"}
+$("printBtn").addEventListener("click",()=>toast("Upload your exported poster on MYPOSTER to order the print"));
+function syncShop(){syncPrint();const q=frameQuery(),k=storeKey(),[dom,word]=STORES[k],tag=SHOP.amazon[k];$("frameBtn").hidden=!q;{const pa=S.mode==="poster"&&!!PRINT_AWIN[printStore()[0]],fa=!!q&&!!tag;$("shopNote").hidden=!pa&&!fa;$("shopNote").textContent=(fa&&pa?"Amazon and MYPOSTER links are affiliate links":fa?"Amazon affiliate link":"MYPOSTER affiliate link")+": MapMaking earns from qualifying purchases."}$("readyShop").hidden=!q;if(!q)return;
   const url=`https://www.${dom}/s?k=${encodeURIComponent(word+" "+q)}${tag?`&tag=${encodeURIComponent(tag)}`:""}`;
   $("frameBtn").href=url;$("frameLbl").textContent="Buy frame";$("frameBtn").title=`Find ${q} frames on ${dom.replace(/^amazon/,"Amazon")}`;
   $("readyShop").href=url;$("readyShop").hidden=false;$("readyShop").textContent=`Need a frame? Shop ${q} frames`}
