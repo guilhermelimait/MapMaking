@@ -27,6 +27,12 @@ Tilt the camera up to 60° and rotate it to turn a flat street plan into a skyli
 - **Wallpapers** — dark palettes like Noir, Tron and Neon at phone, tablet or 5K desktop sizes.
 - **Gifts and shop listings** — export a framed wall mockup, then order the print and a matching frame.
 
+## Why I made this
+
+I wanted to create a map, but I couldn't find any tool online that looked the way I liked. So I used [Claude](https://claude.ai) to build exactly the tool I had in mind, and to share with the world what it can do.
+
+It's free, simple, and offered as is. Enjoy it!
+
 ## Features
 
 ![MapMaking on desktop](screenshots/desktop.png)
